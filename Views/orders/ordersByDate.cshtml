@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<Assignment1_mvc4.Controllers.Order>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ordersByDate";
 }
 <div class="page-header">
-<h2>this is the home index page</h2>                <!-- this is th e home  index  -->
+<h2>this is the order by date view</h2>
     </div>
 
 
-<form method="GET" action="/orders/Index">
+<form method="GET" action="/orders/index">
     <div class="row" role="form">
         <div class="form-group col-md-2">
             <label for="orderName">Search For</label>
@@ -21,7 +21,7 @@
         </div>
     </div>
 </form>
-    <div class="pull-right" >
+  <div class="pull-right" >
         <p >
             @Html.ActionLink("Sort by Date", 
                         "sortByDate", "orders",null, new {@class="btn btn-info btn-xs"}) 
@@ -29,7 +29,7 @@
                         "sortByValue", "orders",null, new {@class="btn btn-info btn-xs"}) 
         </p>
     </div>
-<table  class="table table-hover">
+<table  class="table table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.OrderDate)
@@ -71,7 +71,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr onclick="location.href = '@(Url.Action("getAlbums", "orders", new { id = item.OrderId }))'" >
+    <tr>
         <td>
             @Html.DisplayFor(modelItem => item.OrderDate)
         </td>
@@ -86,7 +86,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Address)
-            
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.City)

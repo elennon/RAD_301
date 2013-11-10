@@ -186,6 +186,7 @@
     <Compile Include="Controllers\Album.cs">
       <DependentUpon>musicDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\albumDetails.cs" />
     <Compile Include="Controllers\Artist.cs">
       <DependentUpon>musicDb.tt</DependentUpon>
     </Compile>
@@ -220,11 +221,13 @@
     <Compile Include="Controllers\OrderDetail.cs">
       <DependentUpon>musicDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ordersController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\ordersContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -361,6 +364,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\orders\Index.cshtml" />
+    <Content Include="Views\orders\Details.cshtml" />
+    <Content Include="Views\orders\Create.cshtml" />
+    <Content Include="Views\orders\Edit.cshtml" />
+    <Content Include="Views\orders\Delete.cshtml" />
+    <Content Include="Views\orders\ordersByDate.cshtml" />
+    <Content Include="Views\orders\ArtistDetails.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

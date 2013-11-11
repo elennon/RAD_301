@@ -55,7 +55,8 @@ namespace Assignment1_mvc4.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Order order = db.Orders.Find(id);
+            //Order order = db.Orders.Find(id);
+            var order = cd.Orders.Select(a => a).Where(n => n.OrderId == id).FirstOrDefault();
             if (order == null)
             {
                 return HttpNotFound();

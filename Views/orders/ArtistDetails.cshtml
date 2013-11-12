@@ -42,12 +42,12 @@
             @Html.DisplayFor(modelItem => item.AlbumArtUrl)
         </td>
         
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
     </tr>
 }
 
 </table>
+    <div style="text-align:center; font-weight:bold">
+    @Html.ActionLink("Back to orders", "index", "Home",null, new { @class="btn btn-default" })
+
+</div>
+

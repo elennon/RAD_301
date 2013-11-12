@@ -14,6 +14,7 @@ namespace Assignment1_mvc4.Controllers
         public decimal Price { get; set; }
         public string AlbumArtUrl { get; set; }
         public string ArtistName { get; set; }
+        public int OrderId { get; set; }
 
         public albumDetails()
         {

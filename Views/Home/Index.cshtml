@@ -6,7 +6,7 @@
 <div class="page-header">
 <h2>this is the home index page</h2>                <!-- this is the home  index  -->
     </div>
-
+<p>(click on an order to view the album details for that order)</p>
 
 <form method="GET" action="/orders/Index">
     <div class="row" role="form">
@@ -110,11 +110,14 @@
             @Html.DisplayFor(modelItem => item.Total)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OrderId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrderId })
+            @Html.ActionLink("Edit", "Edit","orders", new { id=item.OrderId },null) |
+            @Html.ActionLink("Details", "Details","orders", new { id=item.OrderId },null) |
+            @Html.ActionLink("Delete", "Delete","orders", new { id=item.OrderId },null)
         </td>
     </tr>
 }
 
 </table>
+<div style="text-align:center; font-weight:bold">
+    @Html.ActionLink("Create New", "Create","orders")
+</div>

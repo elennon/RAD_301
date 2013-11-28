@@ -71,7 +71,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr onclick="location.href = '@(Url.Action("getAlbums", "orders", new { id = item.OrderId }))'">
         <td>
             @Html.DisplayFor(modelItem => item.OrderDate)
         </td>
@@ -109,11 +109,15 @@
             @Html.DisplayFor(modelItem => item.Total)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OrderId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrderId })
+            @Html.ActionLink("Edit", "Edit","orders", new { id=item.OrderId },null) |
+            @Html.ActionLink("Details", "Details","orders", new { id=item.OrderId },null) |
+            @Html.ActionLink("Delete", "Delete","orders", new { id=item.OrderId },null)
         </td>
     </tr>
 }
 
 </table>
+    
+    <div style="text-align:center; font-weight:bold" >
+        @Html.ActionLink("Create New", "Create","orders")
+    </div>

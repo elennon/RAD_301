@@ -366,11 +366,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\orders\Index.cshtml" />
     <Content Include="Views\orders\Details.cshtml" />
-    <Content Include="Views\orders\Create.cshtml" />
-    <Content Include="Views\orders\Edit.cshtml" />
-    <Content Include="Views\orders\Delete.cshtml" />
     <Content Include="Views\orders\ordersByDate.cshtml" />
     <Content Include="Views\orders\ArtistDetails.cshtml" />
+    <Content Include="Views\orders\delTest.cshtml" />
+    <Content Include="Views\orders\editView.cshtml" />
+    <Content Include="Views\orders\createView.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

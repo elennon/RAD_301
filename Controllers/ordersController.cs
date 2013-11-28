@@ -42,10 +42,11 @@ namespace Assignment1_mvc4.Controllers
                      join b in cd.OrderDetails on a.AlbumId equals b.AlbumId
                      where b.OrderId == id
                      select a;
+            
             foreach (var m in al)
 	        {
                 var artist = cd.Artists.Select(a => a).Where(n => n.ArtistId == m.ArtistId).SingleOrDefault();
-                albumDetails albumPicked = new albumDetails { Album_id = m.AlbumId, AlbumArtUrl = m.AlbumArtUrl, Artist_id = m.ArtistId, Genre_id = m.GenreId, Price = m.Price, Title = m.Title, ArtistName = artist.Name };
+                albumDetails albumPicked = new albumDetails { Album_id = m.AlbumId, OrderId=id, AlbumArtUrl = m.AlbumArtUrl, Artist_id = m.ArtistId, Genre_id = m.GenreId, Price = m.Price, Title = m.Title, ArtistName = artist.Name };
                 albumPerOreder.Add(albumPicked);
 	        }
             
@@ -69,7 +70,7 @@ namespace Assignment1_mvc4.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View("createView");
         }
 
         //
@@ -81,9 +82,10 @@ namespace Assignment1_mvc4.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Orders.Add(order);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                cd.Orders.Add(order);
+                cd.SaveChanges();
+                
+                return RedirectToAction("Index", "Home");
             }
 
             return View(order);
@@ -94,12 +96,12 @@ namespace Assignment1_mvc4.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Order order = db.Orders.Find(id);
+            Order order = cd.Orders.Find(id);
             if (order == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View("editView",order);
         }
 
         //
@@ -111,9 +113,9 @@ namespace Assignment1_mvc4.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(order).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                cd.Entry(order).State = EntityState.Modified;
+                cd.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }
             return View(order);
         }
@@ -123,12 +125,14 @@ namespace Assignment1_mvc4.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Order order = db.Orders.Find(id);
-            if (order == null)
+            // order = db.Orders.Find(id);
+            var t = cd.Orders.Select(a => a).Where(n => n.OrderId == id).SingleOrDefault();
+          
+            if (t == null)
             {
                 return HttpNotFound();
             }
-            return View(order);
+            return View("delTest",t);
         }
 
         //
@@ -138,10 +142,10 @@ namespace Assignment1_mvc4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Order order = db.Orders.Find(id);
-            db.Orders.Remove(order);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            Order order = cd.Orders.Find(id);
+            cd.Orders.Remove(order);
+            cd.SaveChanges();
+            return RedirectToAction("Index","Home");
         }
 
         protected override void Dispose(bool disposing)

@@ -1,0 +1,98 @@
+﻿@model Assignment1_mvc4.Controllers.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Order</legend>
+    <table  class="table table-hover">
+    <tr>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.State)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.Country)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th class="display-label">
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+        <th></th>
+    </tr>
+
+
+    <tr  >
+        <td class="display-field">
+            @Html.DisplayFor(model => model.OrderDate)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Username)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.FirstName)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.LastName)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Address)
+            
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.City)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.State)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.PostalCode)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Country)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Phone)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Email)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Total)
+        </td>       
+    </tr>
+</table>
+   
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.OrderId }) |
+    @Html.ActionLink("Back to List", "Index","Home")
+</p>

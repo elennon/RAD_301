@@ -1,45 +1,135 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-@section featured {
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
-        </div>
-    </section>
-}
-<h3>We suggest the following:</h3>
-<ol class="round">
-    <li class="one">
-        <h5>Getting Started</h5>
-        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-        enables a clean separation of concerns and that gives you full control over markup
-        for enjoyable, agile development. ASP.NET MVC includes many features that enable
-        fast, TDD-friendly development for creating sophisticated applications that use
-        the latest web standards.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
-    </li>
+﻿@model IEnumerable<CA2.Order>
 
-    <li class="two">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
-    </li>
+@{
+    ViewBag.Title = "Index";
+}
 
-    <li class="three">
-        <h5>Find Web Hosting</h5>
-        You can easily find a web hosting company that offers the right mix of features
-        and price for your applications.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
-    </li>
-</ol>
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+    <div id="Modal" class="modal fade">         @*// from bootstrap site http://getbootstrap.com/2.3.2/javascript.html*@
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                  <p>This is the full address for this order</p>
+                <p id="pAddress"> </p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+    </div>
+@using (@Html.BeginForm("Index","Home", FormMethod.Get, 
+    new {@class="form-horizontal", @role="form"})){
+    
+<table class="table table-striped table-hover" id="thismodal" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.ContactName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequiredDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShippedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShipVia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Freight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShipName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ShipAddress)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.ContactName)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.OrderDate)*@
+            @string.Format("{0: MM/dd/yy}", item.OrderDate)
+        </td>
+        <td>
+           @* @Html.DisplayFor(modelItem => item.RequiredDate)*@
+            @string.Format("{0: MM/dd/yy}", item.RequiredDate)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.ShippedDate)*@
+            @string.Format("{0: MM/dd/yy}", item.ShippedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipVia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Freight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ShipName)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.ShipAddress)*@
+            @Html.Raw(item.ShipAddress)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrderID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrderID })
+        </td>
+    </tr>
+}
+
+</table>
+}
+
+@section scripts {
+
+<script>
+
+    //$(document).ready(function () {
+       
+    //    $('#thismodal').on('click',td, function () {
+           
+     
+    //        var id = $(this).val();
+    //        alert("nofx" + id);
+    //        $.getJSON('index/getAddress/' + id)
+    //            .done(function (data) {
+    //                alert(data);
+    //                $('#pAddress').text((data));
+    //            })
+    //            .fail(function (jqXHR, textStatus, err) {
+    //                $('#song').text('Error: ' + err);
+    //            });
+    //        $("#Modal").modal('show')
+    //    });
+       
+    //});
+
+    function getLongAddress(ad) {
+        //alert(ad);
+        $("#pAddress").text(ad)
+        $("#Modal").modal('show')
+    }
+    
+</script>
+}

@@ -1,0 +1,44 @@
+﻿@model CA2.Employee
+
+<fieldset>
+    <legend>Employee</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Country)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Country)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ReportsTo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ReportsTo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.PhotoPath)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PhotoPath)
+    </div>
+</fieldset>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.EmployeeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@

@@ -1,0 +1,11 @@
+﻿
+.DivPane {
+   
+    border: 2px solid red;
+    background: beige;
+    margin-left: 45%;
+    height:100px;
+    width:100px;
+    position:absolute;
+    opacity:0;
+}

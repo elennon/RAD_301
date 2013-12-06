@@ -5,9 +5,13 @@
 }
 
 <h2>Index</h2>
-
+<div id="employeeDetails" class="DivPane" >
+      
+    </div>
+<button id="btn" >huhuhu</button>
 <p>
-    @Html.ActionLink("Create New", "Create")
+     @*@Ajax.ActionLink("gg", "partial", new AjaxOptions { UpdateTargetId = "employeeDetails" })*@
+    @Ajax.ActionLink("Parial Page1", "partial","Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "employeeDetails"})
 </p>
     <div id="Modal" class="modal fade">         @*// from bootstrap site http://getbootstrap.com/2.3.2/javascript.html*@
           <div class="modal-dialog">
@@ -26,11 +30,22 @@
             </div>
           </div>
     </div>
-@using (@Html.BeginForm("Index","Home", FormMethod.Get, 
-    new {@class="form-horizontal", @role="form"})){
+@*@using (@Html.BeginForm("Index","Home", FormMethod.Get, 
+    new {@class="form-horizontal", @role="form"})){*@
     
-<table class="table table-striped table-hover" id="thismodal" >
-    <tr>
+
+@*@using (@Ajax.BeginForm("partial", "Home",
+    new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "employeeDetails" }, new { @class = "form-horizontal", @role = "form" }))
+{
+        
+*@
+@using (Ajax.BeginForm("partial", "Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "employeeDetails" },
+    new { @class = "form-horizontal", @role = "form", id="form" }))
+{
+    
+<table class="table table-striped table-hover" id="table"  >
+    
+    <tr >
         <th>
             @Html.DisplayNameFor(model => model.Customer.ContactName)
         </th>
@@ -59,8 +74,10 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
+@foreach (var item in Model)
+{
+    <tr  >
+    @*<tr onclick="location.href = '@(Url.Action("getAlbums", "orders", new { id = item.OrderId }))'" >*@
         <td>
             @Html.DisplayFor(modelItem => item.Customer.ContactName)
         </td>
@@ -91,45 +108,42 @@
         </td>
         
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.OrderID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.OrderID })
         </td>
     </tr>
 }
-
 </table>
+    
 }
 
 @section scripts {
 
 <script>
 
-    //$(document).ready(function () {
-       
-    //    $('#thismodal').on('click',td, function () {
-           
-     
-    //        var id = $(this).val();
-    //        alert("nofx" + id);
-    //        $.getJSON('index/getAddress/' + id)
-    //            .done(function (data) {
-    //                alert(data);
-    //                $('#pAddress').text((data));
-    //            })
-    //            .fail(function (jqXHR, textStatus, err) {
-    //                $('#song').text('Error: ' + err);
-    //            });
-    //        $("#Modal").modal('show')
-    //    });
-       
-    //});
+    $(document).ready(function () {      
+        $('#table').on('click', 'tr', function () {
+            $("#employeeDetails").animate({
+                left: '300px',
+                opacity: '0.8',
+                height: '250px',
+                width: '250px'
+            });
+            
 
+            $('#form').submit();
+            //alert("nofx");
+            });
+            
+    });
+   
     function getLongAddress(ad) {
         //alert(ad);
         $("#pAddress").text(ad)
         $("#Modal").modal('show')
     }
-    
+   
+
 </script>
 }

@@ -9,7 +9,8 @@ namespace CA2.Controllers
 {
     public class HomeController : Controller
     {
-        northwndEntities cd = new northwndEntities();
+        //northwndEntities cd = new northwndEntities();
+        nwEntities cd = new nwEntities();
         public ActionResult Index()
         {
             var orders = cd.Orders;
@@ -34,7 +35,7 @@ namespace CA2.Controllers
                     item.ShipAddress = builder.ToString(TagRenderMode.Normal);   
                 }
             }
-            return View(orders);
+            return View("index",orders);
         }
 
         public string GetAddress(int id)
@@ -44,17 +45,59 @@ namespace CA2.Controllers
             return address;
         }
 
-        public PartialViewResult partial(int id)
+        //[HttpGet]
+        public PartialViewResult getEmployee(int id)
         {
-            var ord = cd.Orders;
-            return PartialView("_employee");
+            if (Request.IsAjaxRequest())
+            {
+                var emp = cd.Orders.Where(a => a.OrderID == id);
+                //var emp = cd.Orders.Find(id);
+                return PartialView("_EmployeeDetails", emp);
+            }
+            else
+            {
+                var orders = cd.Orders.Where(a => a.EmployeeID == id);
+                return PartialView("_EmployeeDetails", orders);
+            }
         }
 
-        public ActionResult Contact()
+        public ActionResult Delete(int id )
         {
-            ViewBag.Message = "Your contact page.";
+            var t = cd.Orders.Find(id);
 
-            return View();
+            if (t == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Delete", t);
         }
+
+        public ActionResult Edit(int id = 0)
+        {
+            var order = cd.Orders.Where(a => a.OrderID == id).FirstOrDefault();
+            //var t = cd.Employees.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Employee = new SelectList(cd.Orders.OrderBy(g => g.Employee.LastName), "OrderID", "ShipName");
+            //ViewBag.Employee = new SelectList(cd.Orders, "OrderID","EmployeeID",order.EmployeeID);
+            //ViewBag.ArtistId = new SelectList(db.Artists, "ArtistId", "Name", a.ArtistId);
+
+            //return (a == null) ? View() : View(a);
+
+            return View("Edit", order);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Order order = cd.Orders.Find(id);
+            cd.Orders.Remove(order);
+            cd.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+        
     }
 }

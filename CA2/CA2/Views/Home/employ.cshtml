@@ -1,0 +1,23 @@
+﻿@model  CA2.Order
+
+
+
+<fieldset id="pacientList" >
+    <legend>Employee</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Employee.LastName)
+
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Employee.LastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Employee.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Employee.FirstName)
+    </div>
+
+    </fieldset>

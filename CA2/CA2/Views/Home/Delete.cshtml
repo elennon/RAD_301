@@ -20,14 +20,18 @@
                 <p> </p>
               </div>
               <div class="modal-footer">
-               
-                  @Html.ActionLink("Delete", "Delete", new { @id = @Model.OrderID }, new { @class = "btn btn-default" })
-                   
+                <div style="text-align:center;" >
+                @using (Html.BeginForm()) {
+                    @Html.AntiForgeryToken()    
+                    <input type="submit" value="Delete" />
+                }
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
+        </div>
     </div>
+
 <div style="float:left; width:35%;">
         <fieldset class="scheduler-border" >
             <legend>Order</legend>
@@ -128,28 +132,36 @@
     </div>
 
     </fieldset>
-       </div>
+    </div>
+    <div>
+     
+            <p>
+                @*<input type="submit" value="Delete" /> |*@
+                <button type="button" onclick="showDeleteBox()" class="btn btn-default" >Delete</button>
 
-<div style="text-align:center;" >
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    <p>
-        @*<input type="submit" value="Delete" /> |*@
-        <button type="button" onclick="showDeleteBox(@Model.OrderID)" class="btn btn-default" >Delete</button>
+                @Html.ActionLink("Back to List", "Index")
+            </p>
 
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-}
+                    
+                
  </div>
 @section scripts {
 
 <script>
 
     
-    function showDeleteBox(id) {
+    function showDeleteBox() {
         
         $("#DeleteCheck").modal('show')
     }
 
 </script>
 }
+
+
+
+
+
+
+
+      

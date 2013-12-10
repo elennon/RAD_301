@@ -4,12 +4,14 @@
     ViewBag.Title = "Index";
 }
 
+
 <h2>Index</h2>
 
 <div id="employeeDetails" class="DivPane" >
-      @*@Html.Partial("_EmployeeDetails");*@
-   @* @Html.Partial("ord");*@
+    
     </div>
+
+
 
     <div id="Modal" class="modal fade">         @*// from bootstrap site http://getbootstrap.com/2.3.2/javascript.html*@
           <div class="modal-dialog">
@@ -31,7 +33,8 @@
 
 
 
-    
+    <div id="MainPage">
+        
 <table class="table table-striped table-hover" id="table"   >
     
     <tr  >
@@ -66,13 +69,14 @@
 
 @foreach (var item in Model)
 {
-    <tr  >
-    @using (Ajax.BeginForm("getEmployee","Home", new { @id = item.OrderID }, new AjaxOptions {  InsertionMode = InsertionMode.Replace, UpdateTargetId = "employeeDetails" },
-    new { @class = "form-horizontal", @role = "form", id = "form" }))
-    {
     
-        @Html.HiddenFor(modelItem => item.EmployeeID)
-        @*<tr onclick="location.href = '@(Url.Action("getAlbums", "orders", new { id = item.OrderId }))'" >*@
+    
+    <tr onclick="clickTr(@item.OrderID)" >
+
+                               
+      @using (Ajax.BeginForm("getEmployee", "Home", new { @id = @item.EmployeeID }, new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "GET", UpdateTargetId = "employeeDetails" },
+    new { @class = "form-horizontal", @role = "form", @id = @item.OrderID }))
+    {
         <td>
             @Html.DisplayFor(modelItem => item.Customer.ContactName)
         </td>
@@ -101,43 +105,45 @@
             @*@Html.DisplayFor(modelItem => item.ShipAddress)*@
             @Html.Raw(item.ShipAddress)
         </td>
-    }
+    
         <td>
             @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
+            
             @Html.ActionLink("Delete", "Delete", new { id = item.OrderID }, new { @class="btn btn-default" }) 
             
-          
         </td>
-    
+      }
     </tr>
 
 }
 </table>
-    
+        
+    </div>  
 
 
 @section scripts {
 
 <script>
 
-    $(document).ready(function () {      
-        $('#table').on('click', 'tr',  function () {
-            $("#employeeDetails").animate({
-                left: '300px',
-                opacity: '1.0',
-                height: '350px',
-                width: '250px'
-            });
-            
-            var t = $(this).val();
-           
-            $('#form').submit();
-            //alert("nofx");
-            });
-            
-    });
-   
+
+    function clickTr(id) {
+        //var scrollTop = $(window).scrollTop(),
+        //    elementOffset = $('this').offset().top,
+        //    distance = (elementOffset - scrollTop);
+
+        $("#employeeDetails").animate({
+            //top: distance,
+            left: '300px',
+            opacity: '1.0',
+            height: '350px',
+            width: '330px'
+        });
+        $("#form").val(id)
+        $('form').submit();
+    
+    }
+
+
     function getLongAddress(ad) {
         //alert(ad);
         $("#pAddress").text(ad)

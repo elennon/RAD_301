@@ -11,32 +11,77 @@ namespace CA2.Controllers
     {
         //northwndEntities cd = new northwndEntities();
         nwEntities cd = new nwEntities();
-        public ActionResult Index()
+      
+        [HttpGet]
+        public ActionResult Index(int id = 0)
         {
-            var orders = cd.Orders;
-            foreach (var item in orders)
+            IEnumerable<Order> orders;
+            //if (Request.IsAjaxRequest())
+            if(id != 0)
             {
-                int id = item.OrderID;
-                string address = string.Format("{0}, {1}, {2}, {3}, {4}", item.ShipAddress, item.ShipCity, item.ShipRegion, item.ShipPostalCode, item.ShipCountry);
-                if (address.Length < 50)
-                {
-                    item.ShipAddress = address;                   
-                }
-                else
-                {
-                    var builder = new TagBuilder("input");                   
-                    builder.Attributes.Add("value", "Address is too long(click me!)");
-                    string value = "getLongAddress('" + address + "')";
-                    builder.Attributes.Add("onclick", value);
-                    builder.Attributes.Add("id", "aBtn");
-                    builder.Attributes.Add("data-toggle", "modal");
-                    builder.Attributes.Add("class", "btn btn-block btn-primary");
-                    builder.MergeAttributes(new RouteValueDictionary());
-                    item.ShipAddress = builder.ToString(TagRenderMode.Normal);   
-                }
+                orders = cd.Orders.Where(a => a.EmployeeID == id);
             }
-            return View("index",orders);
+            else
+            {
+                orders = cd.Orders;
+            }
+                foreach (var item in orders)
+                {
+                    string address = string.Format("{0}, {1}, {2}, {3}, {4}", item.ShipAddress, item.ShipCity, item.ShipRegion, item.ShipPostalCode, item.ShipCountry);
+                    if (address.Length < 50)
+                    {
+                        item.ShipAddress = address;
+                    }
+                    else
+                    {
+                        var builder = new TagBuilder("input");
+                        builder.Attributes.Add("value", "Address is too long(click me!)");
+                        string value = "getLongAddress('" + address + "')";
+                        builder.Attributes.Add("onclick", value);
+                        builder.Attributes.Add("id", "aBtn");
+                        builder.Attributes.Add("data-toggle", "modal");
+                        builder.Attributes.Add("class", "btn btn-block btn-primary");
+                        builder.MergeAttributes(new RouteValueDictionary());
+                        item.ShipAddress = builder.ToString(TagRenderMode.Normal);
+                    }
+                }
+                return View("index", orders);
         }
+        //[HttpGet]
+        //public ActionResult getOrders(int id )
+        //{
+        //    //IEnumerable<Order> orders;
+        //    //if (Request.IsAjaxRequest())
+        //    //{
+        //    //    orders = cd.Orders.Where(a => a.EmployeeID == id);
+        //    //}
+        //    //else
+        //    //{
+        //    //    orders = cd.Orders;
+        //    //}
+        //    var orders = cd.Orders.Where(a => a.EmployeeID == id);
+        //    foreach (var item in orders)
+        //    {
+        //        string address = string.Format("{0}, {1}, {2}, {3}, {4}", item.ShipAddress, item.ShipCity, item.ShipRegion, item.ShipPostalCode, item.ShipCountry);
+        //        if (address.Length < 50)
+        //        {
+        //            item.ShipAddress = address;
+        //        }
+        //        else
+        //        {
+        //            var builder = new TagBuilder("input");
+        //            builder.Attributes.Add("value", "Address is too long(click me!)");
+        //            string value = "getLongAddress('" + address + "')";
+        //            builder.Attributes.Add("onclick", value);
+        //            builder.Attributes.Add("id", "aBtn");
+        //            builder.Attributes.Add("data-toggle", "modal");
+        //            builder.Attributes.Add("class", "btn btn-block btn-primary");
+        //            builder.MergeAttributes(new RouteValueDictionary());
+        //            item.ShipAddress = builder.ToString(TagRenderMode.Normal);
+        //        }
+        //    }
+        //    return View("index", orders);
+        //}
 
         public string GetAddress(int id)
         {
@@ -45,23 +90,61 @@ namespace CA2.Controllers
             return address;
         }
 
-        //[HttpGet]
+        [HttpGet]
         public PartialViewResult getEmployee(int id)
         {
-            if (Request.IsAjaxRequest())
-            {
-                var emp = cd.Orders.Where(a => a.OrderID == id);
+            
+                //var emp = cd.Orders.Where(a => a.OrderID == id);
                 //var emp = cd.Orders.Find(id);
-                return PartialView("_EmployeeDetails", emp);
+                var emp = cd.Employees.Find(id);
+                //return PartialView("vv", emp);
+                return PartialView("_getEmployee", emp);
+            
+        }
+
+        
+        public ActionResult Edit(int id = 0)
+        {
+            //IEnumerable<Order> order;
+            
+            if (!Request.IsAjaxRequest())
+            {
+
+                Order ord = cd.Orders.Find(id);
+                var t = cd.Employees.Find(ord.EmployeeID);
+                if (ord == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.Shipper = new SelectList(cd.Shippers, "ShipperID", "CompanyName", ord.Shipper);
+                ViewBag.Employee = new SelectList(cd.Employees, "EmployeeID", "LastName", ord.EmployeeID);
+                return View("EditOrder", ord);
             }
             else
             {
-                var orders = cd.Orders.Where(a => a.EmployeeID == id);
-                return PartialView("_EmployeeDetails", orders);
+                var em = cd.Orders.Find(id);
+               
+                return View("EditOrder", ord);
             }
         }
 
-        public ActionResult Delete(int id )
+        [HttpPost]
+        public ActionResult EditOrder(int id)
+        {
+            try
+            {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+
+                return View();
+            }
+        }
+
+        public ActionResult Delete(int id)
         {
             var t = cd.Orders.Find(id);
 
@@ -72,28 +155,18 @@ namespace CA2.Controllers
             return View("Delete", t);
         }
 
-        public ActionResult Edit(int id = 0)
-        {
-            var order = cd.Orders.Where(a => a.OrderID == id).FirstOrDefault();
-            //var t = cd.Employees.Find(id);
-            if (order == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.Employee = new SelectList(cd.Orders.OrderBy(g => g.Employee.LastName), "OrderID", "ShipName");
-            //ViewBag.Employee = new SelectList(cd.Orders, "OrderID","EmployeeID",order.EmployeeID);
-            //ViewBag.ArtistId = new SelectList(db.Artists, "ArtistId", "Name", a.ArtistId);
-
-            //return (a == null) ? View() : View(a);
-
-            return View("Edit", order);
-        }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Order order = cd.Orders.Find(id);
+            var dOrder = cd.Order_Details.Where(a => a.OrderID == order.OrderID);
+            foreach (var item in dOrder)
+            {
+                cd.Order_Details.Remove(item);
+            }
+            //cd.SaveChanges();
             cd.Orders.Remove(order);
             cd.SaveChanges();
             return RedirectToAction("Index", "Home");

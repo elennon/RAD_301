@@ -9,3 +9,10 @@
     position:absolute;
     opacity:0;
 }
+.DivSplitRight {
+    float:right; 
+    width:45%;
+}
+.DivSplitLeft {
+    width:45%;
+}

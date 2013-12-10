@@ -1,0 +1,55 @@
+﻿@model CA2.Employee
+
+<h3>Employee Details</h3>
+
+<div id="employeeDetails" >
+    <div style="float:left; width:45%;">
+        <fieldset>
+            <legend></legend>
+
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.FirstName)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.LastName)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.City)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayNameFor(model => model.ReportsTo)
+            </div>
+        </fieldset>
+        @Html.ActionLink("Orders for " + Model.FirstName , "Index", new { id = Model.EmployeeID }, new { @class="btn btn-block btn-primary" }) 
+    </div>
+
+    <div style="float:right; width:45%;">
+        <fieldset>
+            <legend></legend>
+   
+            <div class="display-label">
+                 @Html.DisplayFor(model => model.FirstName)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayFor(model => model.LastName)
+            </div>
+            <div class="display-label">
+                 @Html.DisplayFor(model => model.City)
+            </div>
+            <div class="display-label">
+                  @Html.DisplayFor(model => model.boss.LastName)               
+            </div>
+
+
+            
+           
+        </fieldset>
+    </div>
+</div>
+
+@section scripts {
+   <script>
+      
+   </script>
+
+}

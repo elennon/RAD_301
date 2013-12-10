@@ -1,0 +1,95 @@
+﻿@model CA2.Employee
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+        </th>
+        <th>
+             <div class="editor-field">
+            @Html.LabelFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </th>
+        
+        <th>
+            <div class="editor-field">
+            @Html.EditorFor(model => model.Country)
+            @Html.ValidationMessageFor(model => model.Country)
+        </div>
+        </th>
+        <th>
+            <div class="editor-field">
+            @Html.EditorFor(model => model.HomePhone)
+            @Html.ValidationMessageFor(model => model.HomePhone)
+        </div>
+        </th>
+       
+        <th>
+            <div class="editor-field">
+            @Html.EditorFor(model => model.Notes)
+            @Html.ValidationMessageFor(model => model.Notes)
+        </div>
+        </th>
+        <th>
+             <div class="editor-field">
+            @Html.EditorFor(model => model.ReportsTo)
+            @Html.ValidationMessageFor(model => model.ReportsTo)
+        </div>
+        </th>
+       
+        <th></th>
+    </tr>
+
+
+    <tr>
+        <td>
+           <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+        </td>
+        <td>
+            <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+        </td>
+       
+        <td>
+           <div class="editor-field">
+            @Html.EditorFor(model => model.Country)
+            @Html.ValidationMessageFor(model => model.Country)
+        </div>
+        </td>
+        <td>
+           <div class="editor-field">
+            @Html.EditorFor(model => model.HomePhone)
+            @Html.ValidationMessageFor(model => model.HomePhone)
+        </div>
+        </td>
+        
+        <td>
+            <div class="editor-field">
+            @Html.EditorFor(model => model.Notes)
+            @Html.ValidationMessageFor(model => model.Notes)
+        </div>
+           
+        </td>
+        <td>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ReportsTo)
+            @Html.ValidationMessageFor(model => model.ReportsTo)
+        </div>
+        </td>
+        
+        
+    </tr>
+}
+
+</table>

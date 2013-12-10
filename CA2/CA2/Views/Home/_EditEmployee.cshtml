@@ -1,46 +1,38 @@
 ﻿@model CA2.Employee
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
+@{
+    ViewBag.Title = "editView";
+}
+
+<h3>You can edit the fields below and click to save</h3>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
 <table>
     <tr>
-        <th>
-            <div class="editor-label">
-            @Html.LabelFor(model => model.LastName)
-                @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
+        <th class="editor-label">
+            @Html.DisplayNameFor(model => model.LastName)
         </th>
-        <th>
-             <div class="editor-field">
-            @Html.LabelFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
+        <th class="editor-label">
+            @Html.DisplayNameFor(model => model.FirstName)
         </th>
-        
-        <th>
-            <div class="editor-field">
-            @Html.EditorFor(model => model.Country)
-            @Html.ValidationMessageFor(model => model.Country)
-        </div>
+        <th  class="editor-label">
+            @Html.DisplayNameFor(model => model.Country)
         </th>
-        <th>
-            <div class="editor-field">
-            @Html.EditorFor(model => model.HomePhone)
-            @Html.ValidationMessageFor(model => model.HomePhone)
-        </div>
+        <th  class="editor-label">
+            @Html.DisplayNameFor(model => model.HomePhone)
         </th>
-       
-        <th>
-            <div class="editor-field">
-            @Html.EditorFor(model => model.Notes)
-            @Html.ValidationMessageFor(model => model.Notes)
-        </div>
+        <th  class="editor-label">
+            @Html.DisplayNameFor(model => model.Notes)
         </th>
-        <th>
-             <div class="editor-field">
-            @Html.EditorFor(model => model.ReportsTo)
-            @Html.ValidationMessageFor(model => model.ReportsTo)
-        </div>
+        <th class="editor-label">
+            @Html.DisplayNameFor(model => model.ReportsTo)
+        </th>
+      
+        <th  class="editor-label">
+            @Html.DisplayNameFor(model => model.Orders)
         </th>
        
         <th></th>
@@ -48,48 +40,64 @@
 
 
     <tr>
-        <td>
+        <td >
            <div class="editor-field">
-            @Html.EditorFor(model => model.LastName)
-            @Html.ValidationMessageFor(model => model.LastName)
-        </div>
+                @Html.EditorFor(model => model.LastName)
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
         </td>
         <td>
             <div class="editor-field">
-            @Html.EditorFor(model => model.FirstName)
-            @Html.ValidationMessageFor(model => model.FirstName)
-        </div>
-        </td>
-       
-        <td>
-           <div class="editor-field">
-            @Html.EditorFor(model => model.Country)
-            @Html.ValidationMessageFor(model => model.Country)
-        </div>
+                @Html.EditorFor(model => model.FirstName)
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
         </td>
         <td>
-           <div class="editor-field">
-            @Html.EditorFor(model => model.HomePhone)
-            @Html.ValidationMessageFor(model => model.HomePhone)
-        </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Country)
+                @Html.ValidationMessageFor(model => model.Country)
+            </div>
+        </td>
+        <td>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.HomePhone)
+                @Html.ValidationMessageFor(model => model.HomePhone)
+            </div>
+        </td>
+        <td>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Notes)
+                @Html.ValidationMessageFor(model => model.Notes)
+            </div>
+        </td>
+        <td>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.ReportsTo)
+                @Html.ValidationMessageFor(model => model.ReportsTo)
+            </div>
         </td>
         
         <td>
             <div class="editor-field">
-            @Html.EditorFor(model => model.Notes)
-            @Html.ValidationMessageFor(model => model.Notes)
-        </div>
-           
-        </td>
-        <td>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ReportsTo)
-            @Html.ValidationMessageFor(model => model.ReportsTo)
-        </div>
+                @Html.EditorFor(model => model.Orders)
+                @Html.ValidationMessageFor(model => model.Orders)
+            </div>
         </td>
         
         
     </tr>
+            
+</table>
+        <p>
+            <input type="submit" value="Save" class="btn btn-danger" />
+        </p>
+}
+    <div>
+ 
+    @Html.ActionLink("Back to List", "Index","Home")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }
 
-</table>

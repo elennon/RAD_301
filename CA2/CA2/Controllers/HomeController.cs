@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -47,41 +48,7 @@ namespace CA2.Controllers
                 }
                 return View("index", orders);
         }
-        //[HttpGet]
-        //public ActionResult getOrders(int id )
-        //{
-        //    //IEnumerable<Order> orders;
-        //    //if (Request.IsAjaxRequest())
-        //    //{
-        //    //    orders = cd.Orders.Where(a => a.EmployeeID == id);
-        //    //}
-        //    //else
-        //    //{
-        //    //    orders = cd.Orders;
-        //    //}
-        //    var orders = cd.Orders.Where(a => a.EmployeeID == id);
-        //    foreach (var item in orders)
-        //    {
-        //        string address = string.Format("{0}, {1}, {2}, {3}, {4}", item.ShipAddress, item.ShipCity, item.ShipRegion, item.ShipPostalCode, item.ShipCountry);
-        //        if (address.Length < 50)
-        //        {
-        //            item.ShipAddress = address;
-        //        }
-        //        else
-        //        {
-        //            var builder = new TagBuilder("input");
-        //            builder.Attributes.Add("value", "Address is too long(click me!)");
-        //            string value = "getLongAddress('" + address + "')";
-        //            builder.Attributes.Add("onclick", value);
-        //            builder.Attributes.Add("id", "aBtn");
-        //            builder.Attributes.Add("data-toggle", "modal");
-        //            builder.Attributes.Add("class", "btn btn-block btn-primary");
-        //            builder.MergeAttributes(new RouteValueDictionary());
-        //            item.ShipAddress = builder.ToString(TagRenderMode.Normal);
-        //        }
-        //    }
-        //    return View("index", orders);
-        //}
+        
 
         public string GetAddress(int id)
         {
@@ -118,31 +85,41 @@ namespace CA2.Controllers
                 }
                 ViewBag.Shipper = new SelectList(cd.Shippers, "ShipperID", "CompanyName", ord.Shipper);
                 ViewBag.Employee = new SelectList(cd.Employees, "EmployeeID", "LastName", ord.EmployeeID);
-                return View("EditOrder", ord);
+                return View("Edit", ord);
             }
             else
             {
                 var em = cd.Orders.Find(id);
                
-                return View("EditOrder", ord);
+                return View("_EditEmployee", em.Employee);
             }
         }
-
         [HttpPost]
-        public ActionResult EditOrder(int id)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Order order)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                cd.Entry(order).State = EntityState.Modified;
+                cd.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }
-            catch
-            {
-
-                return View();
-            }
+            return View(order);
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(Employee employ)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        cd.Entry(employ).State = EntityState.Modified;
+        //        cd.SaveChanges();
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    return View(employ);
+        //}
+
 
         public ActionResult Delete(int id)
         {

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CA_sem2.DAL;
+using CA_sem2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,17 +10,29 @@ namespace CA_sem2.Controllers
 {
     public class HomeController : Controller
     {
+        //TripContext db = new TripContext();
+        private ITripRepository _repo;
+
+        public HomeController(ITripRepository repo)
+        {
+            _repo = repo;
+        }
+
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
-            return View();
+            var y = _repo.getAllTrips();
+                return View(y);
+            
         }
-
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Create(Trip tr)
         {
-            ViewBag.Message = "Your app description page.";
-
+            _repo.insertTrip(tr);
+            return RedirectToAction("Index");
+        }
+        public ActionResult create()
+        {
             return View();
         }
 

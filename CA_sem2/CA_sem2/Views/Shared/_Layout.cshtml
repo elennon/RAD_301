@@ -5,8 +5,10 @@
         <title>@ViewBag.Title - My ASP.NET MVC Application</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
+      
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
+        
     </head>
     <body>
         <div class="container"> 
@@ -50,27 +52,29 @@
                             </div><!--/.container-fluid -->
                           </div>
        <!-- Main component for a primary marketing message or call to action -->
-      <div class="jumbotron">
+      @*<div class="jumbotron">
             <h1>Navbar example</h1>
             <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
             <p>
             <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
             </p>
-      </div>
+          
+      </div>*@
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
             </section>
         @*</div> <!-- end body -->*@
-        <footer>
+        @*<footer>
             <div class="content-wrapper">
                 <div class="float-left">
                     <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
                 </div>
             </div>
-        </footer>
+        </footer>*@
         </div> <!-- /container -->
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
         @RenderSection("scripts", required: false)
     </body>
 </html>

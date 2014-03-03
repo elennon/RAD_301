@@ -1,0 +1,75 @@
+﻿@model CA_sem2.Models.Leg
+
+
+
+@section scripts {
+        <script type="text/javascript">
+           
+            function checkIfFirst() {
+                alert("forty four");
+                @*var lgs = "@Model.Trip.LegsColl.Count()";
+                var startLoc = "@Model.StartLocation";
+                alert(lgs);
+                if (lgs < 1) {
+                    $("#startFrom").text(startLoc)
+                }*@
+            }
+        </script>
+    }
+
+<h2>create a leg for @Html.DisplayFor(model => model.Trip.TripName)</h2>
+
+@using (Ajax.BeginForm("AddLeg", "Home", new { TripId = Model.TripId }, new AjaxOptions { HttpMethod = "POST" },
+    new { @class = "form-horizontal", @role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+       <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Start Location</label>
+                    <div class="col-sm-8">
+                        @if(@Model.Trip.LegsColl.Count() < 1){
+                            <input type="text" value="@Model.Trip.StartLocation" readonly="true" class="form-control" name="StartLocation" >
+                        }
+                        else{
+                            <input type="text" value="@Model.Trip.LegsColl[@Model.Trip.LegsColl.Count()-1].StartLocation" id="startFrom" class="form-control"  name="StartLocation" placeholder="Start Location" />
+                        }
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label  class="col-sm-4 control-label">Finish Location</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" name="FinishLocation" placeholder="Finish Location">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Start Date</label>
+                    <div class="col-sm-8">
+                        @if(@Model.Trip.LegsColl.Count() < 1){
+                            <input type="text" class="form-control" readonly="true" value="@Model.Trip.StartDate.ToShortDateString()" name="StartDate" placeholder="Start Date">
+                        }
+                        else{
+                            <input type="text" class="form-control" name="StartDate" placeholder="Start Date">
+                        }
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label  class="col-sm-4 control-label">Finish Date</label>
+                    <div class="col-sm-8">
+                      <input type="text"  class="form-control" name="FinishDate" placeholder="Can't be later than '@Model.Trip.FinishDate.ToShortDateString()'">
+                    </div>
+                  </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" value="@Model.Trip.TripId"  name="TripId" >
+                    </div>
+
+
+
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                      <button type="submit" class="btn btn-default">Add Trip</button>
+                    </div>
+                  </div>
+            </form>
+}

@@ -9,6 +9,12 @@ namespace CA_sem2
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                        "~/Scripts/jquery.ui.core.js",
+                        "~/Scripts/jquery.ui.widget.js",
+                        "~/Scripts/jquery.ui.datepicker.js",
+                        "~/Scripts/jquery.unobtrusive*",
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js",
+                        "~/Scripts/bootstrap-datepicker.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/jquery-{version}.js"));
 
@@ -24,9 +30,14 @@ namespace CA_sem2
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include( "~/Content/bootstrap.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                        "~/Content/datePicker.css",
+                        "~/Content/bootstrap.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+                        "~/Content/demos.css",
+                        "~/Content/jquery_ui.css",
+                        "~/Content/jquery.ui.all.css",
                         "~/Content/bootstrap.css",
                         "~/Content/themes/base/jquery.ui.core.css",
                         "~/Content/themes/base/jquery.ui.resizable.css",

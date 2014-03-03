@@ -10,37 +10,52 @@ namespace CA_sem2.Controllers
 {
     public class HomeController : Controller
     {
-        //TripContext db = new TripContext();
-        private ITripRepository _repo;
+        //TourContext db = new TourContext();
+        private ITourRepository db;
 
-        public HomeController(ITripRepository repo)
+        public HomeController(ITourRepository repo)
         {
-            _repo = repo;
+            db = repo;
         }
 
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-            var y = _repo.getAllTrips();
-                return View(y);
-            
+            var y = db.getAllTrips();
+            ViewBag.trips = new SelectList(y, "TripId", "TripName");
+
+            return View(y);
         }
+
         [HttpPost]
         public ActionResult Create(Trip tr)
         {
-            _repo.insertTrip(tr);
+            db.insertTrip(tr);
             return RedirectToAction("Index");
         }
-        public ActionResult create()
+
+        public ActionResult _Create()
         {
-            return View();
+            //return View("Create");
+            return PartialView();
         }
 
-        public ActionResult Contact()
+        public ActionResult AddLeg(Leg lg)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            db.insertLeg(lg);
+            return RedirectToAction("Index");
         }
+
+        public ActionResult _AddLeg(int id)
+        {
+            Leg lg = db.getTripId(id);
+            return PartialView("_AddLeg", lg);
+        }
+
+        public ActionResult EditTrip(int TripId)
+        {
+            Trip trip = db.findTrip(TripId);
+            return View(trip);
+        }
+
     }
 }

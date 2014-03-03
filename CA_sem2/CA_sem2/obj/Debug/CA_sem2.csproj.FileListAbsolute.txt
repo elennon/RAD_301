@@ -68,8 +68,7 @@ C:\RAD_301\RAD_301\CA_sem2\CA_sem2\obj\Debug\CA_sem2.dll
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\obj\Debug\CA_sem2.pdb
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\bin\EFUtil.Core.dll
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\bin\EFUtil.Repository.dll
-C:\RAD_301\RAD_301\CA_sem2\CA_sem2\obj\Debug\CA_sem2.Migrations.ff.resources
-C:\RAD_301\RAD_301\CA_sem2\CA_sem2\obj\Debug\CA_sem2.csproj.GenerateResource.Cache
+C:\RAD_301\RAD_301\CA_sem2\CA_sem2\obj\Debug\CA_sem2.csprojResolveAssemblyReference.cache
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\bin\Ninject.dll
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\bin\Ninject.Web.Common.dll
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\bin\Ninject.Web.Mvc.dll
@@ -80,5 +79,3 @@ C:\RAD_301\RAD_301\CA_sem2\CA_sem2\bin\Ninject.Web.Common.pdb
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\bin\Ninject.Web.Common.xml
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\bin\Ninject.Web.Mvc.pdb
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\bin\Ninject.Web.Mvc.xml
-C:\RAD_301\RAD_301\CA_sem2\CA_sem2\obj\Debug\CA_sem2.Migrations.nn.resources
-C:\RAD_301\RAD_301\CA_sem2\CA_sem2\obj\Debug\CA_sem2.csprojResolveAssemblyReference.cache

@@ -114,7 +114,7 @@ namespace CA_sem2.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ITripRepository>().To<TripRepository>().InRequestScope();
+            kernel.Bind<ITourRepository>().To<TourRepository>().InRequestScope();
             // Install our Ninject-based IDependencyResolver into the Web API config
             GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
         }

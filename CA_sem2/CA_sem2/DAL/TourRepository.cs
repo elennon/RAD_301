@@ -44,6 +44,27 @@ namespace CA_sem2.DAL
             return tr;
         }
 
+        public Leg getLegDets(int Id)
+        {
+            Leg lg = cd.Legs.Find(Id);
+            return lg;
+        }
+
+        public IEnumerable<Guest> getGuestList(int Id)
+        {
+            var guests = cd.Legs.Find(Id).GuestColl;
+            return guests;
+        }
+
+        public void insertGuest(Guest gt, int legId)
+        {
+            cd.Guests.Add(gt);
+            var leg = cd.Legs.Find(legId);
+            leg.GuestColl.Add(gt);
+            cd.SaveChanges();
+        }
+
+
         //public void seedData()
         //{
         //    var trips = new List<Trip>

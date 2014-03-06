@@ -12,8 +12,7 @@ namespace CA_sem2
                         "~/Scripts/jquery.ui.core.js",
                         "~/Scripts/jquery.ui.widget.js",
                         "~/Scripts/jquery.ui.datepicker.js",
-                        "~/Scripts/jquery.unobtrusive*",
-                        "~/Scripts/jquery.unobtrusive-ajax.min.js",
+            
                         "~/Scripts/bootstrap-datepicker.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/jquery-{version}.js"));

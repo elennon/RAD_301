@@ -21,8 +21,6 @@ namespace CA_sem2.Controllers
         public ActionResult Index()
         {
             var y = db.getAllTrips();
-            ViewBag.trips = new SelectList(y, "TripId", "TripName");
-
             return View(y);
         }
 
@@ -54,8 +52,26 @@ namespace CA_sem2.Controllers
         public ActionResult EditTrip(int TripId)
         {
             Trip trip = db.findTrip(TripId);
+            ViewBag.Legs = new SelectList(trip.LegsColl, "id", "StartLocation");
             return View(trip);
         }
+        
+        public ActionResult _ShowLegs(int Id)
+        {
+            Leg lg = db.getLegDets(Id);
+            ViewBag.guests = new SelectList(lg.GuestColl, "GuestId", "Name");
+            return PartialView("_ShowLegs", lg);
+        }
 
+        public ActionResult _AddGuests(int Id)
+        {
+            Leg lg = db.getLegDets(Id);
+            return PartialView(lg);
+        }
+        public ActionResult AddGuests(Guest gts, int Id)
+        {          
+            db.insertGuest(gts, Id);
+            return RedirectToAction("EditTrip");
+        }
     }
 }

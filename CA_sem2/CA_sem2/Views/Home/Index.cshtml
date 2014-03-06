@@ -19,6 +19,11 @@
                 }
             });
 
+            $("#subButtonn").click(function () {
+                //$("#addTrip").empty();
+                alert("we are 138");
+            });
+
             function detsForThisTrip(id) {
 
                 var trip = {
@@ -33,24 +38,7 @@
                     // dataType: 'json',
                 });
             }
-
-            //$("#ddg").change(function () {
-            //    var selectedValue = $(this).val();
-            //    //alert( selectedValue);
-
-            //    var trip = {
-            //        TripId: $(this).val()
-            //    };
-            //    $.ajax({
-            //        type: 'POST',
-            //        url: '/Home/AddLeg',
-            //        cache: false,
-            //        contentType: 'application/json; charset=utf-8',
-            //        data: JSON.stringify(trip),
-            //        // dataType: 'json',
-            //    });
-            //});
-
+            
         </script>
     }
 
@@ -60,6 +48,7 @@
         </div>
     
 <h2>Index</h2>
+
     <div class="col-sm-7">
         <p>
            @* @Html.ActionLink("Create Trip","Create","Home",null, new {@class="btn btn-primary", style="margin-bottom:10px"})*@
@@ -67,16 +56,8 @@
                
         </p>
 
-        <div >
-            @Html.DropDownList("ddg",  (SelectList)(ViewBag.trips ), new { @class = "form-control"})
-          
-        </div>
-    
-
         <p>Date: <input type="text" id="datepicker"></p>
-
-               
-        
+       
                     <table class="table table-striped table-hover" id="tripTable">
                         <tr>
                             <th>
@@ -124,11 +105,13 @@
                             
                             <td>
                                 @*@Html.ActionLink("Add a leg", "Edit", new { id=item.TripId }) |*@
-                                @Ajax.ActionLink("Add a leg", "_AddLeg", new { id = item.TripId }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "addTrip", OnSuccess="checkIfFirst" })
+                                @Ajax.ActionLink("Add a leg", "_AddLeg", new { id = item.TripId }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "addTrip", OnComplete="clearPartials" })
+                                @Html.ActionLink("View All Details", "EditTrip","Home", new { TripId = item.TripId },null)
                             </td>
                         </tr>
                     }
 
                     </table>
+                   
             </div>
    

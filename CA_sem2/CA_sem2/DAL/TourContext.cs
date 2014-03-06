@@ -17,7 +17,7 @@ namespace CA_sem2.DAL
         public DbSet<Guest> Guests { get; set; }
 
         public TourContext()
-            : base("TourDB")
+            : base("TouDB")
         {
             Database.SetInitializer(new TripInitializer());
         }
@@ -27,27 +27,43 @@ namespace CA_sem2.DAL
         }
     }
 
-    public class TripInitializer : DropCreateDatabaseAlways<TourContext>
+    public class TripInitializer : DropCreateDatabaseIfModelChanges<TourContext>
     {
         protected override void Seed(TourContext context)
         {
             var trips = new List<Trip>
             {
-            new Trip{ TripName="trip1",FinishLocation="Belfast",StartLocation="Kerry", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11"), MinGuests= 4},
+            new Trip{ TripName="West Coast Spin",FinishLocation="Malin",StartLocation="West Cork", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11"), MinGuests= 4},
             new Trip{ TripName="GalWay/Dublin",FinishLocation="Galway",StartLocation="Dublin", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11"), MinGuests= 4},
-            new Trip{ TripName="trip89",FinishLocation="Sligo",StartLocation="Clare", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11"), MinGuests= 788}
+            new Trip{ TripName="Iberian",FinishLocation="San Sabastain",StartLocation="Malaga", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11"), MinGuests= 788}
+            new Trip{ TripName="Gaul Surf",FinishLocation="Le Harve",StartLocation="Biarritz", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11"), MinGuests= 4},
+            new Trip{ TripName="Sligo surf spots",FinishLocation="Grange reefs",StartLocation="Inniscrone", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11"), MinGuests= 788}
+
             };
             trips.ForEach(s => context.Trips.Add(s));
             context.SaveChanges();
 
             var legs = new List<Leg>
             {
-            new Leg{StartLocation="Galway",Trip=trips[1], FinishLocation= "Athlone", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  },
-            new Leg{StartLocation="Athlone",Trip=trips[1], FinishLocation= "Porloise", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  },
-            new Leg{StartLocation="Porloise",Trip=trips[1], FinishLocation= "Dublin", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  }
+            new Leg{StartLocation="West Cork",Trip=trips[0], FinishLocation= "BallyBunion", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  },
+            new Leg{StartLocation="BallyBunion",Trip=trips[0], FinishLocation= "Lahinch", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  },
+            new Leg{StartLocation="Lahinch",Trip=trips[0], FinishLocation= "Galway", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  }
+            new Leg{StartLocation="Galway",Trip=trips[0], FinishLocation= "Sligo", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  },
+            new Leg{StartLocation="Sligo",Trip=trips[0], FinishLocation= "Malin", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  }
             };
             legs.ForEach(s => context.Legs.Add(s));
             context.SaveChanges();
+
+            //var legs2 = new List<Leg>
+            //{
+            //new Leg{StartLocation="Galway",Trip=trips[0], FinishLocation= "BallyBunion", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  },
+            //new Leg{StartLocation="BallyBunion",Trip=trips[0], FinishLocation= "Lahinch", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  },
+            //new Leg{StartLocation="Lahinch",Trip=trips[0], FinishLocation= "Galway", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  }
+            //new Leg{StartLocation="Galway",Trip=trips[0], FinishLocation= "Sligo", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  },
+            //new Leg{StartLocation="Sligo",Trip=trips[0], FinishLocation= "Malin", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  }
+            //};
+            //legs.ForEach(s => context.Legs.Add(s));
+            //context.SaveChanges();
 
             Trip t = new Trip();
             foreach (var item in legs)

@@ -12,7 +12,10 @@ namespace CA_sem2.DAL
         List<Trip> getAllTrips();
         void insertTrip(Trip tr);
         void insertLeg(Leg lg);
-        Leg getTripId(int id);
+        Leg getLegDets(int id);
         Trip findTrip(int TripId);
+        Leg getTripId(int id);
+        IEnumerable<Guest> getGuestList(int Id);
+        void insertGuest(Guest id, int legId);
     }
 }

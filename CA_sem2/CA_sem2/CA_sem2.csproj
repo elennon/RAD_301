@@ -311,6 +311,8 @@
     <Content Include="Views\Home\_Create.cshtml" />
     <Content Include="Views\Home\_AddLeg.cshtml" />
     <Content Include="Views\Home\EditTrip.cshtml" />
+    <Content Include="Views\Home\_ShowLegs.cshtml" />
+    <Content Include="Views\Home\_AddGuests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

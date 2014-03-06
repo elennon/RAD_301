@@ -4,20 +4,19 @@
 
 @section scripts {
         <script type="text/javascript">
-           
-            function checkIfFirst() {
-                alert("forty four");
-                @*var lgs = "@Model.Trip.LegsColl.Count()";
-                var startLoc = "@Model.StartLocation";
-                alert(lgs);
-                if (lgs < 1) {
-                    $("#startFrom").text(startLoc)
-                }*@
-            }
+            $(function () {
+                
+            });
+            $("#subButtonn").click(function () {
+                //$("#addTrip").empty();
+                alert("we are 138");
+            });
         </script>
     }
 
 <h2>create a leg for @Html.DisplayFor(model => model.Trip.TripName)</h2>
+
+    <button type="button" class="btn btn-default" id="subButtonn" >testerrrrr</button>
 
 @using (Ajax.BeginForm("AddLeg", "Home", new { TripId = Model.TripId }, new AjaxOptions { HttpMethod = "POST" },
     new { @class = "form-horizontal", @role = "form" }))
@@ -33,7 +32,7 @@
                             <input type="text" value="@Model.Trip.StartLocation" readonly="true" class="form-control" name="StartLocation" >
                         }
                         else{
-                            <input type="text" value="@Model.Trip.LegsColl[@Model.Trip.LegsColl.Count()-1].StartLocation" id="startFrom" class="form-control"  name="StartLocation" placeholder="Start Location" />
+                            <input type="text" value="@Model.Trip.LegsColl[@Model.Trip.LegsColl.Count()-1].FinishLocation" readonly="true" id="startFrom" class="form-control"  name="StartLocation" placeholder="Start Location" />
                         }
                     </div>
                   </div>
@@ -50,7 +49,7 @@
                             <input type="text" class="form-control" readonly="true" value="@Model.Trip.StartDate.ToShortDateString()" name="StartDate" placeholder="Start Date">
                         }
                         else{
-                            <input type="text" class="form-control" name="StartDate" placeholder="Start Date">
+                            <input type="text" value="@Model.Trip.LegsColl[@Model.Trip.LegsColl.Count()-1].StartDate.ToShortDateString()" class="form-control" name="StartDate" placeholder="Start Date">
                         }
                     </div>
                   </div>
@@ -68,7 +67,7 @@
 
                   <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-8">
-                      <button type="submit" class="btn btn-default">Add Trip</button>
+                      <button type="submit" class="btn btn-default" id="subButton" >Add Trip</button>
                     </div>
                   </div>
             </form>

@@ -68,6 +68,7 @@ namespace CA_sem2.Controllers
             Leg lg = db.getLegDets(Id);
             return PartialView(lg);
         }
+
         public ActionResult AddGuests(Guest gts, int Id)
         {          
             db.insertGuest(gts, Id);

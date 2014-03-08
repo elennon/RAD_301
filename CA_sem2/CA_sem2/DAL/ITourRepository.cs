@@ -15,7 +15,8 @@ namespace CA_sem2.DAL
         Leg getLegDets(int id);
         Trip findTrip(int TripId);
         Leg getTripId(int id);
-        IEnumerable<Guest> getGuestList(int Id);
-        void insertGuest(Guest id, int legId);
+        IEnumerable<Guest> getGuestList(Leg lg);
+        IEnumerable<Guest> getAllGuests();
+        void insertGuest(int gId, int LId);
     }
 }

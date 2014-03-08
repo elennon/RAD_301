@@ -52,6 +52,10 @@ namespace CA_sem2.Controllers
         public ActionResult EditTrip(int TripId)
         {
             Trip trip = db.findTrip(TripId);
+            double fullTrip = (trip.FinishDate - trip.StartDate).Days;
+            Leg g = trip.LegsColl[trip.LegsColl.Count() - 1];
+            double doneSoFar = (((trip.LegsColl[trip.LegsColl.Count() - 1]).FinishDate) - trip.StartDate).Days;
+            ViewBag.progress = Convert.ToInt32((doneSoFar / fullTrip) * 100);
             ViewBag.Legs = new SelectList(trip.LegsColl, "id", "StartLocation");
             return View(trip);
         }
@@ -59,20 +63,26 @@ namespace CA_sem2.Controllers
         public ActionResult _ShowLegs(int Id)
         {
             Leg lg = db.getLegDets(Id);
-            ViewBag.guests = new SelectList(lg.GuestColl, "GuestId", "Name");
+            ViewBag.guests = new SelectList(db.getGuestList(lg), "GuestId", "Name");
             return PartialView("_ShowLegs", lg);
         }
 
         public ActionResult _AddGuests(int Id)
         {
-            Leg lg = db.getLegDets(Id);
-            return PartialView(lg);
+            ViewBag.LegId = Id;
+            ViewBag.allGuests = new SelectList(db.getAllGuests(), "GuestId", "Name", Id);
+            return PartialView();
         }
 
-        public ActionResult AddGuests(Guest gts, int Id)
-        {          
-            db.insertGuest(gts, Id);
-            return RedirectToAction("EditTrip");
+        public ActionResult AddGuest(int gts, int id)
+        {
+            Leg lg = db.getLegDets(id);
+            db.insertGuest(gts, id);
+            ViewBag.guests = new SelectList(db.getGuestList(lg), "GuestId", "Name");
+            ViewBag.LegId = id;
+            ViewBag.allGuests = new SelectList(db.getAllGuests(), "GuestId", "Name");
+            return PartialView("_AddGuests");
+            //return PartialView("_ShowLegs", lg);
         }
     }
 }

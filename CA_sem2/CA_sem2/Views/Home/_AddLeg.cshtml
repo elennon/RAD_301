@@ -16,8 +16,6 @@
 
 <h2>create a leg for @Html.DisplayFor(model => model.Trip.TripName)</h2>
 
-    <button type="button" class="btn btn-default" id="subButtonn" >testerrrrr</button>
-
 @using (Ajax.BeginForm("AddLeg", "Home", new { TripId = Model.TripId }, new AjaxOptions { HttpMethod = "POST" },
     new { @class = "form-horizontal", @role = "form" }))
 {

@@ -24,21 +24,6 @@
                 alert("we are 138");
             });
 
-            function detsForThisTrip(id) {
-
-                var trip = {
-                    TripId: id
-                };
-                $.ajax({
-                    type: 'POST',
-                    url: '/Home/EditTrip',
-                    cache: false,
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(trip),
-                    // dataType: 'json',
-                });
-            }
-            
         </script>
     }
 
@@ -52,12 +37,10 @@
     <div class="col-sm-7">
         <p>
            @* @Html.ActionLink("Create Trip","Create","Home",null, new {@class="btn btn-primary", style="margin-bottom:10px"})*@
-           @Ajax.ActionLink("Create Trip","_Create","Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "addTrip" })
+           @Ajax.ActionLink("Create Trip", "_Create", "Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "addTrip" }, new {@class="btn btn-primary active" })
                
         </p>
 
-        <p>Date: <input type="text" id="datepicker"></p>
-       
                     <table class="table table-striped table-hover" id="tripTable">
                         <tr>
                             <th>
@@ -74,9 +57,6 @@
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.FinishDate)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.MinGuests)
                             </th>
                             
                             <th></th>
@@ -99,14 +79,11 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.FinishDate)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.MinGuests)
-                            </td>
                             
                             <td>
                                 @*@Html.ActionLink("Add a leg", "Edit", new { id=item.TripId }) |*@
-                                @Ajax.ActionLink("Add a leg", "_AddLeg", new { id = item.TripId }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "addTrip", OnComplete="clearPartials" })
-                                @Html.ActionLink("View All Details", "EditTrip","Home", new { TripId = item.TripId },null)
+                                @Ajax.ActionLink("Add a leg", "_AddLeg", new { id = item.TripId }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "addTrip", OnComplete = "clearPartials" }, new { @class="btn btn-success active" })
+                                @Html.ActionLink("View All Details", "EditTrip","Home", new { TripId = item.TripId },new{ @class="btn btn-info active" })
                             </td>
                         </tr>
                     }

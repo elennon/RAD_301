@@ -23,8 +23,20 @@ namespace CA_sem2.Models
         public DateTime FinishDate { get; set; }
         [Display(Name = "Guests")]
         public int MinGuests { get; set; }
+        [Display(Name = "Completed?")]
+        public FinStatus FStatus { get; set; }
+        [Display(Name = "Viable?")]
+        public ViaStatus VStatus { get; set; }
 
         public virtual List<Leg> LegsColl { get; set; }
+    }
+    public enum FinStatus
+    {
+        completed, incomplete
+    }
+    public enum ViaStatus
+    {
+        valid, invalid
     }
 
     public class Leg
@@ -37,8 +49,9 @@ namespace CA_sem2.Models
         public DateTime FinishDate { get; set; }
         public int TripId { get; set; }
 
-        public virtual List<Guest> GuestColl { get; set; }
+        public virtual List<GuestLeg> GuestLegs { get; set; }
     }
+
 
     public class GuestLeg
     {
@@ -46,13 +59,15 @@ namespace CA_sem2.Models
         public int GuestId { get; set; }
         public int LegId { get; set; }
 
-        public virtual Guest Guest { get; set; }
         public virtual Leg Leg { get; set; }
+        public virtual Guest Guest { get; set; }
     }
 
     public class Guest
     {
         public int GuestId { get; set; }
         public string Name { get; set; }
+
+        public virtual List<GuestLeg> GuestLegs { get; set; }
     }
 }

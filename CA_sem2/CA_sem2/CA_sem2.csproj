@@ -178,6 +178,10 @@
     <Compile Include="Migrations\201403061300523_more seeding.Designer.cs">
       <DependentUpon>201403061300523_more seeding.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403071547587_qq.cs" />
+    <Compile Include="Migrations\201403071547587_qq.Designer.cs">
+      <DependentUpon>201403071547587_qq.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Tours.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -325,6 +329,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201403061300523_more seeding.resx">
       <DependentUpon>201403061300523_more seeding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403071547587_qq.resx">
+      <DependentUpon>201403071547587_qq.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -50,76 +50,29 @@ namespace CA_sem2.DAL
             return lg;
         }
 
-        public IEnumerable<Guest> getGuestList(int Id)
+        public IEnumerable<Guest> getGuestList(Leg lg)
         {
-            var guests = cd.Legs.Find(Id).GuestColl;
+            var guests = from a in cd.Guests
+                         join b in cd.GuestLegs on a.GuestId equals b.GuestId
+                         join c in cd.Legs on b.LegId equals c.Id
+                         where c.Id == lg.Id
+                         select a;
             return guests;
         }
 
-        public void insertGuest(Guest gt, int legId)
+        public IEnumerable<Guest> getAllGuests()
         {
-            cd.Guests.Add(gt);
-            var leg = cd.Legs.Find(legId);
-            leg.GuestColl.Add(gt);
+            var guests = cd.Guests;
+            return guests;
+        }
+
+        public void insertGuest(int gId, int legId)
+        {
+            GuestLeg gl = new GuestLeg{ GuestId = gId, LegId = legId };
+            cd.GuestLegs.Add(gl);
             cd.SaveChanges();
         }
 
-
-        //public void seedData()
-        //{
-        //    var trips = new List<Trip>
-        //    {
-        //    new Trip{ TripName="trip1", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11"), MinGuests= 4},
-        //    new Trip{ TripName="trip2", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11"), MinGuests= 4}
-        //    };
-        //    trips.ForEach(s => cd.Trips.Add(s));
-        //    cd.SaveChanges();
-
-        //    var legs = new List<Leg>
-        //    {
-        //    new Leg{StartLocation="sligo", FinishLocation= "carlow", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  },
-        //    new Leg{StartLocation="clare", FinishLocation= "kerry", StartDate=DateTime.Parse("2014-09-01"), FinishDate=DateTime.Parse("2014-09-11")  }
-        //    };
-        //    legs.ForEach(s => cd.Legs.Add(s));
-        //    cd.SaveChanges();
-
-        //    var guests = new List<Guest>
-        //    {
-        //    new Guest{Name="Joe"},
-        //    new Guest{Name="Bob"},
-        //    new Guest{Name="Mary"},
-        //    new Guest{Name="Helen"},
-        //    };
-        //    guests.ForEach(s => cd.Guests.Add(s));
-        //    cd.SaveChanges();
-
-        //    var links = new List<GuestLeg>
-        //    {
-        //    new GuestLeg{LegId=1,GuestId=1},
-        //    new GuestLeg{LegId=1,GuestId=2},
-        //    new GuestLeg{LegId=1,GuestId=3},
-        //    new GuestLeg{LegId=1,GuestId=4},
-        //    new GuestLeg{LegId=2,GuestId=1},
-        //    new GuestLeg{LegId=2,GuestId=2},
-        //    new GuestLeg{LegId=2,GuestId=3},
-        //    new GuestLeg{LegId=2,GuestId=4},
-            
-        //    };
-        //    links.ForEach(s => cd.GuestLegs.Add(s));
-        //    cd.SaveChanges();
-
-        //    //var lgs = context.Legs;
-        //    //var gts = context.Guests;
-        //    //foreach (var item in lgs)
-        //    //{
-        //    //    foreach (var m in gts)
-        //    //    {
-        //    //        var guestLeg = new GuestLeg { GuestId = m.GuestId, LegId = item.Id };
-        //    //        context.GuestLegs.Add(guestLeg);
-        //    //    }
-        //    //}
-        //    //context.SaveChanges();
-        //}
 
         public void Dispose()
         {

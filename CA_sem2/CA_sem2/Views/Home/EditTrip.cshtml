@@ -7,18 +7,13 @@
 
 @section Scripts {
     @*@Scripts.Render("~/bundles/jqueryval")*@
-       <script type="text/javascript">
+       <script >
            $(function () {
-               function successMessage() {
-                   alert("we are 138");
-
-               }
-                   $("#lgs").change(function () {
-                      
+               
+                   $("#lgs").change(function () {                     
                        var lgs = {
                            Id: $(this).val()
-                       };
-                       
+                       };                      
                        $.ajax({
                            type: 'POST',
                            url: '/Home/_ShowLegs',
@@ -29,19 +24,40 @@
                                $("#showLegs").html(data);
                            },
                            error: function () {
-                               alert("error 138");
+                               alert("we are 138");
                            }
                        });
-                   });
-               });          
+                   });                 
+           });
+           function successMessage() {
+               toastr.info('Are you the 6 fingered man?')
+               alert("That guest has beed added");
+           }
+           
+           $("#guests").change(function () {
+               alert("error 138");
+               var gst = {
+                   Id: $(this).val()
+               };
+               $.ajax({
+                   type: 'POST',
+                   url: '/Home/_viewGuest',
+                   cache: false,
+                   contentType: 'application/json; charset=utf-8',
+                   data: JSON.stringify(gst),
+                   success: function (data) {
+                       $("#showGuests").html(data);
+                   },
+                   error: function () {
+                       alert("error 138");
+                   }
+               });
+           });
         </script>
 }
 
-<h2>EditTrip</h2>
-
-            <div style="align-content:center" >
-                @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info active" })
-            </div>
+<h2 style="margin-bottom:40px" >@Model.TripName</h2>
+        
         <div  class="form-group"   >
             <div class="col-sm-3" id="showGuests"  style="float:right">
             </div>
@@ -96,7 +112,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="progress">                 
+                    <div class="progress progress-striped active">                 
                         <div class="progress-bar" role="progressbar" id="progBar" aria-valuenow="@ViewBag.progress" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.progress%;">                   
                         </div>
                     </div> 
@@ -120,4 +136,14 @@
         <div  class="form-group"   >
             <div class="col-sm-4" id="showLegs" >
             </div>
+        </div>
+    
+        <div class="col-sm-12" style=" align-content:center" >
+            <div class="col-sm-6"  >
+                    
+            </div>
+            <div class="col-sm-2"  >
+                    @Html.ActionLink("Back to List", "Index", null, new { @class="btn btn-danger btn-default active" })
+            </div>
+            
         </div>

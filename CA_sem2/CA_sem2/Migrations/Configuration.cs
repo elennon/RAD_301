@@ -7,7 +7,7 @@ namespace CA_sem2.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CA_sem2.DAL.TourContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<CA_sem2.DAL.TourContext> 
     {
         public Configuration()
         {
@@ -15,10 +15,27 @@ namespace CA_sem2.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(CA_sem2.DAL.TourContext context)
+        protected override void Seed(CA_sem2.DAL.TourContext context) 
         {
-            if (context.Trips.Count() < 1)
-            {
+            //if (context.Trips.Count() < 1)
+            //{
+                foreach (GuestLeg item in context.GuestLegs)
+                {
+                    context.GuestLegs.Remove(item);
+                }
+                foreach (Trip item in context.Trips)
+                {
+                    context.Trips.Remove(item);
+                }
+                foreach (Leg item in context.Legs)
+                {
+                    context.Legs.Remove(item);
+                }
+                foreach (Guest item in context.Guests)
+                {
+                    context.Guests.Remove(item);
+                }
+                
                 var trips = new List<Trip>
                 {
                 new Trip{ TripName="West Coast Spin",FinishLocation="Malin",StartLocation="West Cork", StartDate=DateTime.Parse("2014-06-01"), FinishDate=DateTime.Parse("2014-08-21"), MinGuests= 4},
@@ -154,7 +171,7 @@ namespace CA_sem2.Migrations
 
                     context.SaveChanges();
                 }
-            }
+            //}
         }
     }
 }

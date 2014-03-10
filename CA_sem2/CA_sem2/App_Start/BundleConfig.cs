@@ -9,6 +9,7 @@ namespace CA_sem2
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                        "~/Scripts/toastr.js",
                         "~/Scripts/jquery.ui.core.js",
                         "~/Scripts/jquery.ui.widget.js",
                         "~/Scripts/jquery.ui.datepicker.js",
@@ -30,6 +31,7 @@ namespace CA_sem2
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                        "~/Content/toastr.css",
                         "~/Content/datePicker.css",
                         "~/Content/bootstrap.css"));
 

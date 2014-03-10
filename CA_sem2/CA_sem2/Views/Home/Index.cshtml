@@ -8,22 +8,17 @@
 @section scripts {
         <script type="text/javascript">
             $(function () {
-                $("#datepicker").datepicker({
-                    showOn: "button",
-                    buttonImage: "~/Images/CALENDAR_gif.jpg",
-                    buttonImageOnly: true
-                });
-
+                
                 function checkIfFirst() {
                     alert("forty four");
                 }
             });
-
-            $("#subButtonn").click(function () {
-                //$("#addTrip").empty();
-                alert("we are 138");
-            });
-
+            function legAddedOK(data) {
+                alert(data.message);
+            }
+            function legAddedNotOK() {
+                alert("problems");
+            }
         </script>
     }
 
@@ -32,12 +27,12 @@
             </div>
         </div>
     
-<h2>Index</h2>
+<h2 style="font-style:italic">Travel Tour Trips</h2>
 
     <div class="col-sm-7">
         <p>
            @* @Html.ActionLink("Create Trip","Create","Home",null, new {@class="btn btn-primary", style="margin-bottom:10px"})*@
-           @Ajax.ActionLink("Create Trip", "_Create", "Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "addTrip" }, new {@class="btn btn-primary active" })
+           @Ajax.ActionLink("Create Trip", "_Create", "Home", new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "addTrip" }, new { @class="btn btn-success active" })
                
         </p>
 

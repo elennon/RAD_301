@@ -4,19 +4,13 @@
 
 @section scripts {
         <script type="text/javascript">
-            $(function () {
-                
-            });
-            $("#subButtonn").click(function () {
-                //$("#addTrip").empty();
-                alert("we are 138");
-            });
+            
         </script>
     }
 
-<h2>create a leg for @Html.DisplayFor(model => model.Trip.TripName)</h2>
+<h3>create a leg for @Html.DisplayFor(model => model.Trip.TripName)</h3>
 
-@using (Ajax.BeginForm("AddLeg", "Home", new { TripId = Model.TripId }, new AjaxOptions { HttpMethod = "POST" },
+@using (Ajax.BeginForm("AddLeg", "Home", new { TripId = Model.TripId }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "legAddedOK(data);", OnFailure = "legAddedNotOK();" },
     new { @class = "form-horizontal", @role = "form" }))
 {
     @Html.AntiForgeryToken()
@@ -47,7 +41,7 @@
                             <input type="text" class="form-control" readonly="true" value="@Model.Trip.StartDate.ToShortDateString()" name="StartDate" placeholder="Start Date">
                         }
                         else{
-                            <input type="text" value="@Model.Trip.LegsColl[@Model.Trip.LegsColl.Count()-1].StartDate.ToShortDateString()" class="form-control" name="StartDate" placeholder="Start Date">
+                            <input type="text" value="@Model.Trip.LegsColl[@Model.Trip.LegsColl.Count()-1].StartDate.ToShortDateString()" readonly="true" class="form-control" name="StartDate" placeholder="Start Date">
                         }
                     </div>
                   </div>
@@ -63,9 +57,9 @@
 
 
 
-                  <div class="form-group">
+                  <div class="form-group" style="margin-top:15px" >
                     <div class="col-sm-offset-2 col-sm-8">
-                      <button type="submit" class="btn btn-default" id="subButton" >Add Trip</button>
+                      <button type="submit" class="btn btn-success active" id="subButton" >Add Trip</button>
                     </div>
                   </div>
             </form>

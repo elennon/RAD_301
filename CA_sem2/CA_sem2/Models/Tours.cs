@@ -44,8 +44,10 @@ namespace CA_sem2.Models
         public int Id { get; set; }
         public Trip Trip { get; set; }
         public string StartLocation { get; set; }
+        [Required(ErrorMessage = "Please enter a Finish location")]
         public string FinishLocation { get; set; }
         public DateTime StartDate { get; set; }
+        [Required(ErrorMessage = "Please enter a finish date, no later than trip finish date")]
         public DateTime FinishDate { get; set; }
         public int TripId { get; set; }
 

@@ -1,35 +1,12 @@
 ﻿@model CA_sem2.Models.Leg
 
 @section Scripts {
-    @*@Scripts.Render("~/bundles/jqueryval")*@
-       <script type="text/javascript">
-           $(function () {
-               
-                   $("#guests").change(function () {
-                      
-                       var gts = {
-                           Id: $(this).val()
-                       };
-                       $.ajax({
-                           type: 'POST',
-                           url: '/Home/_AddGuests',
-                           cache: false,
-                           contentType: 'application/json; charset=utf-8',
-                           data: JSON.stringify(gts),
-                           success: function (data) {
-                               $("#showGuests").html(data);
-                           },
-                           error: function () {
-                               alert("errorlllllgsss");
-                           }
-                       });
-                   });            
-               });
-           
-        </script>
+    @Scripts.Render("~/bundles/jquery")
+       
 }
-
+     
          <div class="form-horizontal" role="form">
+             <img src="@ViewBag.pic" style="width:100%; height:180px; border:1px solid green; margin-bottom:10px" />
                 <div class="form-group">
                     <label for="nme" class="col-sm-4 control-label">From</label>
                     <div class="col-sm-8">  
@@ -56,8 +33,9 @@
                     </div>
                 </div>
                 
-                <div class="col-sm-8" role="form" >                   
-                    @Html.DropDownList("guests", (SelectList)(ViewBag.guests), new { @class = "form-control" })        
-                    @Ajax.ActionLink("Add Guests", "_AddGuests", "Home", new { id = Model.Id }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "showGuests" }, new { @class = "btn btn-primary active" })
-                </div>
+                    <div class="col-sm-8" role="form" >                   
+                        @Html.DropDownList("guests", (SelectList)(ViewBag.guests), new { @class = "form-control" })                            
+                    </div>
+                
+                @Ajax.ActionLink("Add a Guest", "_AddGuests", "Home", new { id = Model.Id }, new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "showGuests" }, new { @class = "btn btn-primary active" })
         </div>

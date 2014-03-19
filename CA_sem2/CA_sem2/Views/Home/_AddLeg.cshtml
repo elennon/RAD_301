@@ -1,4 +1,4 @@
-﻿@model CA_sem2.Models.Leg
+﻿@model CA_sem2.Models.Trip
 
 
 
@@ -7,8 +7,11 @@
             
         </script>
     }
+    
+    <div style="margin-top:58px">
+        <h3>Add a leg to @Html.DisplayFor(model => model.TripName)</h3>
+    </div>
 
-<h3>create a leg for @Html.DisplayFor(model => model.Trip.TripName)</h3>
 
 @using (Ajax.BeginForm("AddLeg", "Home", new { TripId = Model.TripId }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "legAddedOK(data);", OnFailure = "legAddedNotOK();" },
     new { @class = "form-horizontal", @role = "form" }))
@@ -20,39 +23,39 @@
                   <div class="form-group">
                     <label class="col-sm-4 control-label">Start Location</label>
                     <div class="col-sm-8">
-                        @if(@Model.Trip.LegsColl.Count() < 1){
-                            <input type="text" value="@Model.Trip.StartLocation" readonly="true" class="form-control" name="StartLocation" >
+                        @if(@Model.LegsColl.Count() < 1){
+                            <input type="text" value="@Model.StartLocation" readonly="true" class="form-control" name="StartLocation" >
                         }
                         else{
-                            <input type="text" value="@Model.Trip.LegsColl[@Model.Trip.LegsColl.Count()-1].FinishLocation" readonly="true" id="startFrom" class="form-control"  name="StartLocation" placeholder="Start Location" />
+                            <input type="text" value="@Model.LegsColl[@Model.LegsColl.Count()-1].FinishLocation" readonly="true" id="startFrom" class="form-control"  name="StartLocation" placeholder="Start Location" />
                         }
                     </div>
                   </div>
                   <div class="form-group">
                     <label  class="col-sm-4 control-label">Finish Location</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" name="FinishLocation" placeholder="Finish Location">
+                            <input type="text" class="form-control" name="FinishLocation" placeholder="Finish Location">
                     </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-4 control-label">Start Date</label>
                     <div class="col-sm-8">
-                        @if(@Model.Trip.LegsColl.Count() < 1){
-                            <input type="text" class="form-control" readonly="true" value="@Model.Trip.StartDate.ToShortDateString()" name="StartDate" placeholder="Start Date">
+                        @if(@Model.LegsColl.Count() < 1){
+                            <input type="text" class="form-control" readonly="true" value="@Model.StartDate.ToShortDateString()" name="StartDate" placeholder="Start Date">
                         }
                         else{
-                            <input type="text" value="@Model.Trip.LegsColl[@Model.Trip.LegsColl.Count()-1].StartDate.ToShortDateString()" readonly="true" class="form-control" name="StartDate" placeholder="Start Date">
+                            <input type="text" value="@Model.LegsColl[@Model.LegsColl.Count()-1].StartDate.ToShortDateString()" readonly="true" class="form-control" name="StartDate" placeholder="Start Date">
                         }
                     </div>
                   </div>
                   <div class="form-group">
                     <label  class="col-sm-4 control-label">Finish Date</label>
                     <div class="col-sm-8">
-                      <input type="text"  class="form-control" name="FinishDate" placeholder="Can't be later than '@Model.Trip.FinishDate.ToShortDateString()'">
+                      <input type="text"  class="form-control" name="FinishDate" placeholder="Can't be later than '@Model.FinishDate.ToShortDateString()'">
                     </div>
                   </div>
                     <div class="form-group">
-                        <input type="hidden" class="form-control" value="@Model.Trip.TripId"  name="TripId" >
+                        <input type="hidden" class="form-control" value="@Model.TripId"  name="TripId" >
                     </div>
 
 

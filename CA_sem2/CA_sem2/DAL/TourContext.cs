@@ -19,8 +19,9 @@ namespace CA_sem2.DAL
         public DbSet<Guest> Guests { get; set; }
 
         public TourContext()
-            : base("TourDB22")
+            : base("TourDB222")
         {
+
            // Database.SetInitializer(new TripInitializer());
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TourContext, Configuration>());
         }

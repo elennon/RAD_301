@@ -15,10 +15,19 @@ namespace CA_sem2.DAL
             cd = new TourContext();
         }
 
-        public List<Trip> getAllTrips()
+        //public List<Trip> getAllTrips()
+        //{
+        //    return (List<Trip>)cd.Trips.ToList();
+        //}
+        public IEnumerable<Trip> getAllTrips()
         {
-            return (List<Trip>)cd.Trips.ToList();
+            cd.Configuration.ProxyCreationEnabled = false;
+
+            //var trp = cd.Trips.Find(id);
+            var lgs = cd.Trips;
+            return lgs;
         }
+
 
         public void insertTrip(Trip tr)
         {
@@ -73,6 +82,14 @@ namespace CA_sem2.DAL
             cd.SaveChanges();
         }
 
+        public IEnumerable<Leg> getLegs()
+        {
+            cd.Configuration.ProxyCreationEnabled = false;
+            
+            //var trp = cd.Trips.Find(id);
+            var lgs = cd.Legs;
+            return lgs;
+        }
 
         public void Dispose()
         {

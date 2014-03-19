@@ -24,14 +24,14 @@ namespace CA_sem2.Controllers
 
         public HomeController(ITourRepository repo)
         {
-            db = repo;
-            
+            db = repo;           
         }
 
         public ActionResult Index()
         {
-            var y = db.getAllTrips();
-            return View(y);
+            //var y = db.getAllTrips();
+            //return View(y);
+            return View("ApiIndex");
         }
 
         [HttpPost]
@@ -90,21 +90,29 @@ namespace CA_sem2.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult _AddLeg(int id)
         {
-            Leg lg = db.getTripId(id);
-            return PartialView("_AddLeg", lg);
+            Trip tr = db.findTrip(id);
+            Leg lg = tr.LegsColl[tr.LegsColl.Count() - 1];
+            if (tr.FStatus == 0)
+            {
+                return PartialView("_TripComplete", lg );  // pass the last leg for completed trip
+            }
+            else
+            return PartialView("_AddLeg", tr);      // 
         }
 
-        public ActionResult EditTrip(int TripId)
+        [HttpGet]
+        public ActionResult EditTrip(int id)
         {
-            Trip trip = db.findTrip(TripId);
+            Trip trip = db.findTrip(id);
             double fullTrip = (trip.FinishDate - trip.StartDate).Days;
             Leg g = trip.LegsColl[trip.LegsColl.Count() - 1];
             double doneSoFar = (((trip.LegsColl[trip.LegsColl.Count() - 1]).FinishDate) - trip.StartDate).Days;
             ViewBag.progress = Convert.ToInt32((doneSoFar / fullTrip) * 100);
             ViewBag.Legs = new SelectList(trip.LegsColl, "id", "StartLocation");
-            return View(trip);
+            return View("EditTrip", trip);
         }
 
         public async Task<ActionResult> _ShowLegs(int Id)  //http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&titles=sligo

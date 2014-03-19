@@ -9,7 +9,7 @@ namespace CA_sem2.DAL
 {
     public interface ITourRepository
     {
-        List<Trip> getAllTrips();
+        IEnumerable<Trip> getAllTrips();
         void insertTrip(Trip tr);
         void insertLeg(Leg lg);
         Leg getLegDets(int id);
@@ -18,5 +18,6 @@ namespace CA_sem2.DAL
         IEnumerable<Guest> getGuestList(Leg lg);
         IEnumerable<Guest> getAllGuests();
         void insertGuest(int gId, int LId);
+        IEnumerable<Leg> getLegs();
     }
 }

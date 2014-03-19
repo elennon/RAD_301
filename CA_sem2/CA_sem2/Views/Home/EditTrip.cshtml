@@ -55,95 +55,96 @@
            });
         </script>
 }
-
-<h2 style="margin-bottom:40px" >@Model.TripName</h2>
+<div id="viewTripContainer">
+    <h2 style="margin-bottom:40px" >@Model.TripName</h2>
         
-        <div  class="form-group"   >
-            <div class="col-sm-3" id="showGuests"  style="float:right">
+            <div  class="form-group"   >
+                <div class="col-sm-3" id="showGuests"  style="float:right">
+                </div>
             </div>
-        </div>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
 
-        <div class="col-sm-5" style="float:left" >
-            <div class="form-horizontal" role="form">
-                <div class="form-group">
-                    <label for="nme" class="col-sm-4 control-label">Trip Name</label>
-                    <div class="col-sm-8">                 
-                        <input type="text" class="form-control" value="@Model.TripName" id="nme" name="TripName" placeholder="Enter name">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="from" class="col-sm-4 control-label">Start Location</label>
-                    <div class="col-sm-8">
-                        <input type="text" value="@Model.StartLocation" class="form-control" id="from" name="StartLocation" placeholder="From">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="going" class="col-sm-4 control-label">Going to</label>
-                    <div class="col-sm-8">
-                        <input type="text" value="@Model.FinishLocation" class="form-control" id="going" name="FinishLocation" placeholder="To">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="sd" class="col-sm-4 control-label">Start date</label>
-                    <div class="col-sm-8">
-                        <input type="text" value="@Model.StartDate.ToShortDateString()" class="form-control" id="sd" name="StartDate" placeholder="start date">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="fd" class="col-sm-4 control-label">Finish date</label>
-                    <div class="col-sm-8">
-                        <input type="text" value="@Model.FinishDate.ToShortDateString()" class="form-control" id="fd" name="FinishDate" placeholder="finish date">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="mg" class="col-sm-4 control-label"  >Minnimum guests</label>
-                    <div class="col-sm-8">
-                        <input type="text" value="@Model.MinGuests" class="form-control" id="mg" name="MinGuests" placeholder="Minnimum guests">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="ss" class="col-sm-4 control-label"  >Completed??</label>
-                    <div class="col-sm-8">
-                        <input type="text" value="@Model.FStatus  (@ViewBag.progress%) and @Model.VStatus" class="form-control" id="ss" name="status" placeholder="Trip status">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="progress progress-striped active">                 
-                        <div class="progress-bar" role="progressbar" id="progBar" aria-valuenow="@ViewBag.progress" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.progress%;">                   
+            <div class="col-sm-5" style="float:left" >
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="nme" class="col-sm-4 control-label">Trip Name</label>
+                        <div class="col-sm-8">                 
+                            <input type="text" class="form-control" value="@Model.TripName" id="nme" name="TripName" placeholder="Enter name">
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="from" class="col-sm-4 control-label">Start Location</label>
+                        <div class="col-sm-8">
+                            <input type="text" value="@Model.StartLocation" class="form-control" id="from" name="StartLocation" placeholder="From">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="going" class="col-sm-4 control-label">Going to</label>
+                        <div class="col-sm-8">
+                            <input type="text" value="@Model.FinishLocation" class="form-control" id="going" name="FinishLocation" placeholder="To">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sd" class="col-sm-4 control-label">Start date</label>
+                        <div class="col-sm-8">
+                            <input type="text" value="@Model.StartDate.ToShortDateString()" class="form-control" id="sd" name="StartDate" placeholder="start date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fd" class="col-sm-4 control-label">Finish date</label>
+                        <div class="col-sm-8">
+                            <input type="text" value="@Model.FinishDate.ToShortDateString()" class="form-control" id="fd" name="FinishDate" placeholder="finish date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mg" class="col-sm-4 control-label"  >Minnimum guests</label>
+                        <div class="col-sm-8">
+                            <input type="text" value="@Model.MinGuests" class="form-control" id="mg" name="MinGuests" placeholder="Minnimum guests">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ss" class="col-sm-4 control-label"  >Completed??</label>
+                        <div class="col-sm-8">
+                            <input type="text" value="@Model.FStatus  (@ViewBag.progress%) and @Model.VStatus" class="form-control" id="ss" name="status" placeholder="Trip status">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="progress progress-striped active">                 
+                            <div class="progress-bar" role="progressbar" id="progBar" aria-valuenow="@ViewBag.progress" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.progress%;">                   
+                            </div>
+                        </div> 
                     </div> 
-                </div> 
                 
-            </div>
-            <div class="form-group">
-                <label for="mg" class="col-sm-6 control-label">Click on a Leg to view details</label>
-                <div class="col-sm-6" role="form" >
-                    @using (Ajax.BeginForm("Create", "Home", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "showLegs" },
-                            new { @class = "form-horizontal", @role = "form" }))
-                            {
-                            @Html.AntiForgeryToken()
-                            @Html.ValidationSummary(true)
-                    @Html.DropDownList("lgs", (SelectList)(ViewBag.Legs), new { @class = "form-control" })        
-                    }
                 </div>
-            </div>                     
-        </div>   
-}
-        <div  class="form-group"   >
-            <div class="col-sm-4" id="showLegs" >
+                <div class="form-group">
+                    <label for="mg" class="col-sm-6 control-label">Click on a Leg to view details</label>
+                    <div class="col-sm-6" role="form" >
+                        @using (Ajax.BeginForm("Create", "Home", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "showLegs" },
+                                new { @class = "form-horizontal", @role = "form" }))
+                                {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                        @Html.DropDownList("lgs", (SelectList)(ViewBag.Legs), new { @class = "form-control" })        
+                        }
+                    </div>
+                </div>                     
+            </div>   
+    }
+            <div  class="form-group"   >
+                <div class="col-sm-4" id="showLegs" >
+                </div>
             </div>
-        </div>
     
-        <div class="col-sm-12" style=" align-content:center" >
-            <div class="col-sm-6"  >
+            <div class="col-sm-12" style=" align-content:center" >
+                <div class="col-sm-6"  >
                     
-            </div>
-            <div class="col-sm-2"  >
-                    @Html.ActionLink("Back to List", "Index", null, new { @class="btn btn-danger btn-default active" })
-            </div>
+                </div>
+                <div class="col-sm-2"  >
+                        @Html.ActionLink("Back to List", "Index", null, new { @class="btn btn-danger btn-default active" })
+                </div>
             
-        </div>
+            </div>
+    </div>

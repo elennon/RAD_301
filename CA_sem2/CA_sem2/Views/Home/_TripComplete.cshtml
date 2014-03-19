@@ -1,0 +1,52 @@
+﻿@model CA_sem2.Models.Leg
+
+
+
+
+
+@section scripts {
+        <script type="text/javascript">
+            
+        </script>
+    }
+    <div style="margin-top:58px">
+        <h3 >@Html.DisplayFor(model => model.Trip.TripName) is Complete !!</h3>
+    </div>
+    <div style="margin-top:18px; margin-bottom:20px;">
+        <h4  >This is the final leg</h4>
+    </div>
+    
+       <form class="form-horizontal" role="form">
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Start Location</label>
+                    <div class="col-sm-8">
+                            <input type="text" value="@Model.StartLocation" readonly="true" id="startFrom" class="form-control"  name="StartLocation" />                       
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label  class="col-sm-4 control-label">Finish Location</label>
+                    <div class="col-sm-8">
+                            <input type="text" value="@Model.FinishLocation" readonly="true" class="form-control" name="FinishLocation" >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-4 control-label">Start Date</label>
+                    <div class="col-sm-8">
+                       
+                        <input type="text" value="@Model.StartDate.ToShortDateString()" readonly="true" class="form-control" name="StartDate" >
+                        
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label  class="col-sm-4 control-label">Finish Date</label>
+                    <div class="col-sm-8">
+                            <input type="text" value="@Model.FinishDate.ToShortDateString()" readonly="true" class="form-control" name="FinishDate" >
+                    </div>
+                  </div>
+                    <div class="form-group">
+                        <input type="hidden" class="form-control" value="@Model.Trip.TripId"  name="TripId" >
+                    </div>
+
+            </form>
+

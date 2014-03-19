@@ -11,6 +11,7 @@ namespace CA_sem2.Migrations
     {
         public Configuration()
         {
+
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
         }

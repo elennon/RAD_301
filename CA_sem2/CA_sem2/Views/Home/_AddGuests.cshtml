@@ -14,7 +14,7 @@
 <h2>Add a Guest</h2>
 
                 <div class="form-horizontal" role="form">
-                    @using (Ajax.BeginForm("AddGuest", "Home", new { id = @ViewBag.LegId }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "successMessage();" },
+                    @using (Ajax.BeginForm("AddGuest", "Home", new { id = @ViewBag.LegId }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "successMessage(data);" },
                             new { @class = "form-horizontal", @role = "form" }))
                     {
                             @Html.AntiForgeryToken()

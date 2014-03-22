@@ -38,14 +38,12 @@ namespace CA_sem2.DAL
         public void insertLeg(Leg lg)
         {
             cd.Legs.Add(lg);
+           // var trp = cd.Trips.Find(lg.TripId);
+           // trp.LegsColl.Add(lg);
             cd.SaveChanges();
         }
 
-        public Leg getTripId(int id)
-        {
-            Leg lg = new Leg { Trip = cd.Trips.Find(id) };
-            return lg;
-        }
+        
 
         public Trip findTrip(int TripId)
         {
@@ -75,11 +73,18 @@ namespace CA_sem2.DAL
             return guests;
         }
 
-        public void insertGuest(int gId, int legId)
+        public bool insertGuest(int gId, int legId)
         {
-            GuestLeg gl = new GuestLeg{ GuestId = gId, LegId = legId };
-            cd.GuestLegs.Add(gl);
-            cd.SaveChanges();
+            var checkIfThereAlready = cd.GuestLegs.Where(a => a.GuestId == gId && a.LegId == legId).Count();
+            if (checkIfThereAlready == 0)
+            {
+                GuestLeg gl = new GuestLeg { GuestId = gId, LegId = legId };
+                cd.GuestLegs.Add(gl);
+                cd.SaveChanges();
+                return true;
+            }
+            else
+                return false;
         }
 
         public IEnumerable<Leg> getLegs()
@@ -89,6 +94,11 @@ namespace CA_sem2.DAL
             //var trp = cd.Trips.Find(id);
             var lgs = cd.Legs;
             return lgs;
+        }
+
+        public Guest getGuest(int gts)
+        {
+            return cd.Guests.Find(gts);
         }
 
         public void Dispose()

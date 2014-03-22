@@ -44,7 +44,7 @@
                             <input type="text" class="form-control" readonly="true" value="@Model.StartDate.ToShortDateString()" name="StartDate" placeholder="Start Date">
                         }
                         else{
-                            <input type="text" value="@Model.LegsColl[@Model.LegsColl.Count()-1].StartDate.ToShortDateString()" readonly="true" class="form-control" name="StartDate" placeholder="Start Date">
+                            <input type="text" value="@Model.LegsColl[@Model.LegsColl.Count()-1].FinishDate.ToShortDateString()" readonly="true" class="form-control" name="StartDate" placeholder="Start Date">
                         }
                     </div>
                   </div>

@@ -68,18 +68,26 @@ namespace CA_sem2.Controllers
         public JsonResult AddLeg(Leg lg)
         {
             var trp = db.findTrip(lg.TripId);
+            lg.Trip = trp;
             if (lg.FinishDate > trp.FinishDate)
             {
                 ViewBag.resultMessage = "Finish date can't be later than trip finish date";
                 return Json(new { hasError = true, message = "Finish date can't be later than trip finish date" },
                     JsonRequestBehavior.AllowGet);                           
             }
+            else if (lg.FinishDate <= trp.StartDate)
+            {
+                ViewBag.resultMessage = "Finish date must be after trip start date";
+                return Json(new { hasError = true, message = "Finish date can't be later than trip finish date" },
+                    JsonRequestBehavior.AllowGet);
+            }
             else if (lg.FinishLocation == "" || lg.FinishLocation == null) return Json(new { hasError = true, message = "You must enter a finish location!" }, JsonRequestBehavior.AllowGet);
-            else if (lg.FinishDate == null || lg.FinishDate.ToShortDateString() != "01/01/0001") return Json(new { hasError = true, message = "You must enter a finish date!" }, JsonRequestBehavior.AllowGet);
+            else if (lg.FinishDate == null || lg.FinishDate.ToShortDateString() == "01/01/0001") return Json(new { hasError = true, message = "You must enter a finish date!" }, JsonRequestBehavior.AllowGet);
             else
             {
                 try
                 {
+                    
                     db.insertLeg(lg);
                     return Json(new { hasError = false, message = "All went well - Leg added" }, JsonRequestBehavior.AllowGet);
                 }
@@ -109,7 +117,7 @@ namespace CA_sem2.Controllers
             Trip trip = db.findTrip(id);
             double fullTrip = (trip.FinishDate - trip.StartDate).Days;
             Leg g = trip.LegsColl[trip.LegsColl.Count() - 1];
-            double doneSoFar = (((trip.LegsColl[trip.LegsColl.Count() - 1]).FinishDate) - trip.StartDate).Days;
+            double doneSoFar = (((trip.LegsColl[trip.LegsColl.Count() - 1]).FinishDate) - trip.StartDate).TotalDays;
             ViewBag.progress = Convert.ToInt32((doneSoFar / fullTrip) * 100);
             ViewBag.Legs = new SelectList(trip.LegsColl, "id", "StartLocation");
             return View("EditTrip", trip);
@@ -182,15 +190,31 @@ namespace CA_sem2.Controllers
 
         public JsonResult AddGuest(int gts, int id)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)                         // if ok insert guest and tag on message with leg id to pass back to refresh _showlegs
             {
-                db.insertGuest(gts, id);
-                return Json(new { hasError = false, message = "All went well - guest added" },
-                     JsonRequestBehavior.AllowGet);
+                Guest guest = db.getGuest(gts);
+                if (db.insertGuest(gts, id) == true)
+                {
+                    return Json(new { hasError = false, message = "All went well - " + guest.Name + " added", Id = id.ToString(), isDup = "no" },
+                        JsonRequestBehavior.AllowGet);
+                }
+                else
+                    return Json(new { hasError = true, message = guest.Name + " has already been booked", isDup = "yes" },
+                    JsonRequestBehavior.AllowGet);
             }
             else
                 return Json(new { hasError = true, message = "Failed to insert guest" },
                     JsonRequestBehavior.AllowGet);
         }
+
+        //public ActionResult AddGuest(int gts, int id)
+        //{
+        //    int Id = id;
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.insertGuest(gts, id);
+        //        return RedirectToAction("_ShowLegs/" + Id);
+        //    }
+        //}
     }
 }

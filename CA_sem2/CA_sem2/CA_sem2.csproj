@@ -267,6 +267,7 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\calendar.gif" />
     <Content Include="Images\CALENDAR_gif.jpg" />
+    <Content Include="Images\bus.png" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

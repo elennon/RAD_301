@@ -85,11 +85,16 @@ namespace CA_sem2.Controllers
             else if (lg.FinishDate == null || lg.FinishDate.ToShortDateString() == "01/01/0001") return Json(new { hasError = true, message = "You must enter a finish date!" }, JsonRequestBehavior.AllowGet);
             else
             {
+                
                 try
-                {
-                    
+                {                   
                     db.insertLeg(lg);
-                    return Json(new { hasError = false, message = "All went well - Leg added" }, JsonRequestBehavior.AllowGet);
+                    if (lg.FinishDate == trp.FinishDate) 
+                    {
+                        db.setStatus(trp);
+                        return Json(new { hasError = false, message = "Leg added, " + trp.TripName +" is now complete" }, JsonRequestBehavior.AllowGet);
+                    }
+                    return Json(new { hasError = false, message = "Leg added" }, JsonRequestBehavior.AllowGet);
                 }
                 catch (Exception ex)
                 {
@@ -103,7 +108,7 @@ namespace CA_sem2.Controllers
         {
             Trip tr = db.findTrip(id);
             Leg lg = tr.LegsColl[tr.LegsColl.Count() - 1];
-            if (tr.FStatus == 0)
+            if (tr.complete)
             {
                 return PartialView("_TripComplete", lg );  // pass the last leg for completed trip
             }
@@ -112,15 +117,44 @@ namespace CA_sem2.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditTrip(int id)
+        public ActionResult EditTrip(int id) // id is either a trip id (non ajax) or leg id with ajax call
         {
-            Trip trip = db.findTrip(id);
-            double fullTrip = (trip.FinishDate - trip.StartDate).Days;
-            Leg g = trip.LegsColl[trip.LegsColl.Count() - 1];
-            double doneSoFar = (((trip.LegsColl[trip.LegsColl.Count() - 1]).FinishDate) - trip.StartDate).TotalDays;
-            ViewBag.progress = Convert.ToInt32((doneSoFar / fullTrip) * 100);
-            ViewBag.Legs = new SelectList(trip.LegsColl, "id", "StartLocation");
-            return View("EditTrip", trip);
+            if (!Request.IsAjaxRequest())       // id is a trip id
+            {
+                Trip trip = db.findTrip(id);
+                double fullTrip = (trip.FinishDate - trip.StartDate).Days;
+                Leg g = trip.LegsColl[trip.LegsColl.Count() - 1];
+                double doneSoFar = (((trip.LegsColl[trip.LegsColl.Count() - 1]).FinishDate) - trip.StartDate).TotalDays;
+                ViewBag.progress = Convert.ToInt32((doneSoFar / fullTrip) * 100);
+                ViewBag.Legs = new SelectList(trip.LegsColl, "id", "StartLocation");
+                if (trip.complete)
+                {
+                    ViewBag.status = "Completed";
+                }
+                else
+                    ViewBag.status = "Not Completed";
+                return View("EditTrip", trip);
+            }
+            else                                        // this to update trip valid => after add guest(id is a leg id)
+            {
+                Leg lg = db.findLeg(id);
+                Trip trip = db.findTrip(lg.Trip.TripId);
+                db.updateIfValid(trip);
+                
+                double fullTrip = (trip.FinishDate - trip.StartDate).Days;
+                Leg g = trip.LegsColl[trip.LegsColl.Count() - 1];
+                double doneSoFar = (((trip.LegsColl[trip.LegsColl.Count() - 1]).FinishDate) - trip.StartDate).TotalDays;
+                ViewBag.progress = Convert.ToInt32((doneSoFar / fullTrip) * 100);
+                ViewBag.Legs = new SelectList(trip.LegsColl, "id", "StartLocation");
+                if (trip.complete)
+                {
+                    ViewBag.status = "Completed";
+                }
+                else
+                    ViewBag.status = "Not Completed";
+                return View("EditTrip", trip);
+                
+            }
         }
 
         public async Task<ActionResult> _ShowLegs(int Id)  //http://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xml&titles=sligo
@@ -195,8 +229,16 @@ namespace CA_sem2.Controllers
                 Guest guest = db.getGuest(gts);
                 if (db.insertGuest(gts, id) == true)
                 {
-                    return Json(new { hasError = false, message = "All went well - " + guest.Name + " added", Id = id.ToString(), isDup = "no" },
-                        JsonRequestBehavior.AllowGet);
+                    Leg leg = db.findLeg(id);
+                    Trip trp = db.findTrip(leg.TripId);
+                    if (trp.LegsColl.Count() >= trp.MinGuests)
+                    {
+                        return Json(new { hasError = false, message = "All went well - " + guest.Name + " added", Id = id.ToString(), isDup = "no", updateValide = "yes" },
+                            JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                        return Json(new { hasError = false, message = "All went well - " + guest.Name + " added", Id = id.ToString(), isDup = "no", updateValide = "no" },
+                            JsonRequestBehavior.AllowGet);
                 }
                 else
                     return Json(new { hasError = true, message = guest.Name + " has already been booked", isDup = "yes" },

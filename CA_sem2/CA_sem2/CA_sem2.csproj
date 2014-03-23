@@ -187,6 +187,10 @@
     <Compile Include="Migrations\201403141604114_uuu.Designer.cs">
       <DependentUpon>201403141604114_uuu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201403230154295_tester.cs" />
+    <Compile Include="Migrations\201403230154295_tester.Designer.cs">
+      <DependentUpon>201403230154295_tester.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Tours.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -347,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201403141604114_uuu.resx">
       <DependentUpon>201403141604114_uuu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201403230154295_tester.resx">
+      <DependentUpon>201403230154295_tester.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

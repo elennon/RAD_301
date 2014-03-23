@@ -24,6 +24,7 @@ namespace CA_sem2.DAL
 
            // Database.SetInitializer(new TripInitializer());
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TourContext, Configuration>());
+
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

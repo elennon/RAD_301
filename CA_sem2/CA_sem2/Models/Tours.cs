@@ -13,18 +13,35 @@ namespace CA_sem2.Models
         public string TripName { get; set; }
         [Display(Name = "Start")]
         public string StartLocation { get; set; }
+        [Required(ErrorMessage = "A Finish Location is required")]
         [Display(Name = "Finish")]
         public string FinishLocation { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
 
+
+
+        [Required(ErrorMessage = "A Finish Date is required")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime FinishDate { get; set; }
         [Display(Name = "Guests")]
         public int MinGuests { get; set; }
+
+        //[Display(Name = "Completed?")]
+        //public bool complete { get; set; }
+
+        private bool _complete = false;
         [Display(Name = "Completed?")]
-        public FinStatus FStatus { get; set; }
+        public bool complete
+        {
+            get { return _complete; }
+            set
+            {
+                if (value != null) { _complete = value; }
+            }
+        }
+
         [Display(Name = "Viable?")]
         public ViaStatus VStatus { get; set; }
 

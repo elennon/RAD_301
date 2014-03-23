@@ -21,7 +21,9 @@
                 display:inline-block;              
             }
             #ulBtns li {
-                margin-top:50%;        
+                
+                margin-top:50%;       
+                margin-left:8px; 
             }
             #bus {
                 margin-left: 0px;
@@ -40,7 +42,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                           </button>
-                          <a class="navbar-brand" href="#">Project name</a>
+                          <a class="navbar-brand" href="#">Euro Tours</a>
                         </div>
                         <div class="navbar-collapse collapse">
                           <form class="navbar-form navbar-right" role="form">
@@ -60,31 +62,32 @@
                     <div id="topCont" class="jumbotron">
                       <div  class="container">
                             <div  class="nav nav-justified">
-                                       <ul id="bannerUl" class="nav navbar-nav navbar-left"  >
-                                           <li class="col-sm-6"  ><h1 style="font-family:cursive;">Euro Tours</h1> </li>                                                                              
-                                           <li class="col-sm-2"  ><img src="~/Images/bus.png"  /></li>
-                                           <li class="col-sm-4"  >
-                                               <ul id="ulBtns" class="nav navbar-nav navbar-right">
-                                                    <li><input type="button" class="btn btn-success active" value="Create Trip"  onclick="createTrip()" /></li>
-                                                    <li><div>@Html.ActionLink("Back to List", "Index", null, new { @class="btn btn-success active" })</div></li>
-                                               </ul>                
-                                           </li>
-                                        </ul>
+                                    <ul id="bannerUl" class="nav navbar-nav navbar-left"  >
+                                        <li class="col-sm-5"  ><h1 style="font-family:cursive;">Euro Tours</h1> </li>                                                                              
+                                        <li class="col-sm-2"  ><img src="~/Images/bus.png"  /></li>
+                                        <li class="col-sm-5"  >
+                                            @*<div class="navbar-collapse collapse">
+                                            <ul id="ulBtns" class="nav navbar-nav navbar-right">
+                                                <li><div id="btnCreateTrip"><input type="button"  class="btn btn-success active" value="Create Trip"  onclick="createTrip()" /></div></li>
+                                                <li><div>@Html.ActionLink("   Back to List", "Index", null, new { @class="glyphicon glyphicon-arrow-left btn btn-success active" })</div></li>                                                  
+                                            </ul> 
+                                            </div>   *@    
+                                            <div class="container" >
+                                            <div class="navbar-collapse collapse " >
+                                                  <form class="navbar-form navbar-right " role="form">
+                                                        <div class="form-group" style="margin-top:70px;" id="btnCreateTrip" >  
+                                                            <input type="button"  class="btn btn-success active" value="Create Trip"  onclick="createTrip()" />
+                                                        </div>
+                                                        <div class="form-group" style="margin-top:70px;" >                  @*///the glyphicon font-family seemed to override the button font family unfortunatly*@
+                                                            <div>@Html.ActionLink("   Back to List", "Index", null, new { @class="glyphicon glyphicon-arrow-left btn btn-success active" })</div>
+                                                        </div>                                                   
+                                                  </form>
+                                            </div><!--/.navbar-collapse --> 
+                                            </div>  
+                                        </li>
+                                    </ul>
                             </div>
                         
-                            @*<div class="masthead clearfix" >
-                                <div class="inner" >
-                                       
-                                    <ul class="nav navbar-nav navbar-right" >
-                                    <li><input type="button" id="btnAddTrip" class="btn btn-success active"  style="margin-bottom:-20px;" value="Create Trip" onclick="createTrip()"  /></li>     
-                                    <li>
-                                        @Html.ActionLink("Back to List", "Index", null, new { @class="btn btn-success active", style="margin-bottom:-20px;" })</li>
-                                                   
-                                    </ul>
-                                </div>
-                            </div>*@
-                          
-                          
                       </div>
                     </div>
       

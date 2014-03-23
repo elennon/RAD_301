@@ -9,11 +9,10 @@
     @*@Scripts.Render("~/bundles/jqueryval")*@
        <script >
            $(function () {
-               alert("zodiak");
-               $("btnAddTrip").disabled();
-
-                          
+               $("#btnCreateTrip").hide();
+                         
            });
+           
            $("#lgs").change(function () {
                var lgs = {
                    Id: $(this).val()
@@ -35,7 +34,7 @@
            function successMessage(data) {
                toastr.info(data.message)
                //alert("leg id :" + data.Id);
-               if (data.isDup == "no") {
+               if (data.isDup == "no" && data.updateValide == "no") {
                    var lgs = {
                        Id: data.Id
                    };
@@ -53,8 +52,26 @@
                        }
                    });
                }
+               else if (data.isDup == "no" && data.updateValide == "yes") {
+                   var lgs = {
+                       Id: data.Id
+                   };
+                   $.ajax({
+                       type: 'GET',
+                       url: '/Home/EditTrip/' + data.Id,
+                       cache: false,
+                       contentType: 'application/json; charset=utf-8',
+                       //data: JSON.stringify(lgs),
+                       //success: function (data) {
+                       //    $("#showLegs").html(data);
+                       //},
+                       //error: function () {
+                       //    alert("error");
+                       //}
+                   });
+               }
                else
-                   alert(data.message); 
+                   alert(data.message);
            }
            
            $("#guests").change(function () {
@@ -79,33 +96,23 @@
        </script>
 }
 
+<div id="viewTripContainer">
+    @*<h2 style="margin-bottom:40px" >@Model.TripName</h2>*@
         
             <div  class="form-group"   >
-                <div class="col-sm-3 pull-right " id="showGuests"  >
+                <div class="col-sm-3 pull-right" id="showGuests"  >
                 </div>
             </div>
-<div id="viewTripContainer">
-    
+
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true)
 
             <div class="col-sm-5" style="float:left" >
-                @*<h2 style="margin-bottom:40px" >@Model.TripName</h2>
                 <div class="form-horizontal" role="form">
-                    <div class="col-sm-6" role="form" >
-                        @using (Ajax.BeginForm("Create", "Home", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "showLegs" },
-                                new { @class = "form-horizontal", @role = "form" }))
-                                {
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true)
-                        @Html.DropDownList("lgs", (SelectList)(ViewBag.Legs), new { @class = "form-control" })        
-                        }
-                    </div>*@
-
                     <div class="form-group">
-                        <h2 class="col-sm-4 control-label" style="margin-bottom:40px" >@Model.TripName</h2>
-                        <div class="col-sm-6">
+                        <h3 class="col-sm-6 control-label" style="font-family:cursive;" >@Model.TripName</h3>
+                        <div class="col-sm-5 pull-right">                 
                             @using (Ajax.BeginForm("Create", "Home", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "showLegs" },
                                 new { @class = "form-horizontal", @role = "form" }))
                                 {
@@ -115,9 +122,6 @@
                         }
                         </div>
                     </div>
-
-
-
                     <div class="form-group">
                         <label for="from" class="col-sm-4 control-label">Start Location</label>
                         <div class="col-sm-8">
@@ -151,41 +155,25 @@
                     <div class="form-group">
                         <label for="ss" class="col-sm-4 control-label"  >Completed??</label>
                         <div class="col-sm-8">
-                            <input type="text" value="@Model.FStatus  (@ViewBag.progress%) and @Model.VStatus" class="form-control" id="ss" name="status" placeholder="Trip status">
+                            <input type="text" value="@ViewBag.status  (@ViewBag.progress%) and @Model.VStatus" class="form-control" id="ss" name="status" placeholder="Trip status">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="progress progress-striped active">                 
-                            <div class="progress-bar" role="progressbar" id="progBar" aria-valuenow="@ViewBag.progress" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.progress%;">                   
+                    <div class="row" >
+                        <div class=" col-md-offset-1">
+                            <div class="progress progress-striped active " >                 
+                                <div class="progress-bar " role="progressbar" id="progBar" aria-valuenow="@ViewBag.progress" aria-valuemin="0" aria-valuemax="100" style="width: @ViewBag.progress%;">                   
+                                </div>
                             </div>
                         </div> 
                     </div> 
                 
                 </div>
-                <div class="form-group">
-                    <label for="mg" class="col-sm-6 control-label">Click on a Leg to view details</label>
-                    <div class="col-sm-6" role="form" >
-                        @using (Ajax.BeginForm("Create", "Home", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "showLegs" },
-                                new { @class = "form-horizontal", @role = "form" }))
-                                {
-                                @Html.AntiForgeryToken()
-                                @Html.ValidationSummary(true)
-                        @Html.DropDownList("lgs", (SelectList)(ViewBag.Legs), new { @class = "form-control" })        
-                        }
-                    </div>
-                </div>                     
-              
+                                  
+            </div>   
     }
             <div  class="form-group"   >
                 <div class="col-sm-4" id="showLegs" >
                 </div>
             </div>
     
-            <div class="col-sm-12" style=" align-content:center" >
-                <div class="col-sm-6"  >
-                    
-                </div>
-                
-            
-            </div>
     </div>

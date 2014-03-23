@@ -2379,14 +2379,20 @@ input[type="button"].btn-block {
   src: url('../fonts/glyphicons-halflings-regular.eot');
   src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
+
+   
 .glyphicon {
   position: relative;
   top: 1px;
   display: inline-block;
+
+  /*font-size: 14px;*/ 
+  /*font-family:sans-serif;*/ 
+  line-height: 1.42857143;
   font-family: 'Glyphicons Halflings';
-  font-style: normal;
+  /*font-style: normal;
   font-weight: normal;
-  line-height: 1;
+  line-height: 1;*/
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

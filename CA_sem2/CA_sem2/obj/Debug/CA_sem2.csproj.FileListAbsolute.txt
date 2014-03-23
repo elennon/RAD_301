@@ -167,3 +167,4 @@ D:\temp\CA_sem2\CA_sem2\obj\Debug\CA_sem2.pdb
 D:\temp\CA_sem2\CA_sem2\obj\Debug\CA_sem2.Migrations.qq.resources
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\obj\Debug\CA_sem2.Migrations.qq.resources
 C:\RAD_301\RAD_301\CA_sem2\CA_sem2\obj\Debug\CA_sem2.Migrations.uuu.resources
+C:\RAD_301\RAD_301\CA_sem2\CA_sem2\obj\Debug\CA_sem2.Migrations.tester.resources

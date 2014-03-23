@@ -51,6 +51,12 @@ namespace CA_sem2.DAL
             return tr;
         }
 
+        public Leg findLeg(int legId)
+        {
+            Leg lg = cd.Legs.Find(legId);
+            return lg;
+        }
+
         public Leg getLegDets(int Id)
         {
             Leg lg = cd.Legs.Find(Id);
@@ -101,6 +107,33 @@ namespace CA_sem2.DAL
             return cd.Guests.Find(gts);
         }
 
+        public void setStatus(Trip trp)
+        {
+            var t = cd.Trips.Find(trp.TripId);
+            t.complete = true;
+            cd.SaveChanges();
+        }
+
+        public void updateIfValid(Trip trp)
+        {
+            int moreThan2 = 0;                          // check if at least 2 legs have guests
+            int allGuestsCount = 0;                     // count all guests for this trip
+            foreach (Leg item in trp.LegsColl)
+            {
+                var guestCount = cd.GuestLegs.Where(a => a.LegId == item.Id).Select(n => n.GuestId).Count();
+                if (guestCount > 0) moreThan2++;
+                allGuestsCount += guestCount;
+            }
+            if (moreThan2 >= 2 && allGuestsCount >= trp.MinGuests)  // if number of guests is more than min and not just from one leg, set valid
+                trp.VStatus = ViaStatus.valid;
+            else
+            { trp.VStatus = ViaStatus.invalid; }
+
+            cd.SaveChanges();
+            
+        }
+
+       
         public void Dispose()
         {
             cd.Dispose();

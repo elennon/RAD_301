@@ -18,24 +18,22 @@ namespace CA_sem2.Migrations
 
         protected override void Seed(CA_sem2.DAL.TourContext context) 
         {
-            //if (context.Trips.Count() < 1)
-            //{
-                foreach (GuestLeg item in context.GuestLegs)
-                {
-                    context.GuestLegs.Remove(item);
-                }
-                foreach (Trip item in context.Trips)
-                {
-                    context.Trips.Remove(item);
-                }
-                foreach (Leg item in context.Legs)
-                {
-                    context.Legs.Remove(item);
-                }
-                foreach (Guest item in context.Guests)
-                {
-                    context.Guests.Remove(item);
-                }
+            foreach (GuestLeg item in context.GuestLegs)        // added this to ensure no duplication of data
+            {
+                context.GuestLegs.Remove(item);
+            }
+            foreach (Trip item in context.Trips)
+            {
+                context.Trips.Remove(item);
+            }
+            foreach (Leg item in context.Legs)
+            {
+                context.Legs.Remove(item);
+            }
+            foreach (Guest item in context.Guests)
+            {
+                context.Guests.Remove(item);
+            }
                 
                 var trips = new List<Trip>
                 {
@@ -45,7 +43,7 @@ namespace CA_sem2.Migrations
                 new Trip{ TripName="Viva Le France",FinishLocation="Le Harve",StartLocation="Biarritz", StartDate=DateTime.Parse("2015-09-01"), FinishDate=DateTime.Parse("2015-11-21"), MinGuests= 4},
                 new Trip{ TripName="Sligo Surfing",FinishLocation="Grange",StartLocation="Inniscrone", StartDate=DateTime.Parse("2014-08-01"), FinishDate=DateTime.Parse("2014-10-04"), MinGuests= 788}
                 };
-                    trips.ForEach(s => context.Trips.Add(s));
+                    trips.ForEach(s => context.Trips.AddOrUpdate(s));
                     context.SaveChanges();
 
                     var legs = new List<Leg>
@@ -56,7 +54,7 @@ namespace CA_sem2.Migrations
                 new Leg{StartLocation="Galway",Trip=trips[0], FinishLocation= "Sligo", StartDate=DateTime.Parse("2014-07-21"), FinishDate=DateTime.Parse("2014-08-01")  },
                 new Leg{StartLocation="Sligo",Trip=trips[0], FinishLocation= "Malin", StartDate=DateTime.Parse("2014-08-01"), FinishDate=DateTime.Parse("2014-08-21")  }
                 };
-                    legs.ForEach(s => context.Legs.Add(s));
+                    legs.ForEach(s => context.Legs.AddOrUpdate(s));
                     context.SaveChanges();
                     Trip t = new Trip();
 
@@ -67,7 +65,7 @@ namespace CA_sem2.Migrations
                 new Leg{StartLocation="Roscrea",Trip=trips[1], FinishLocation= "Portloise", StartDate=DateTime.Parse("2015-10-01"), FinishDate=DateTime.Parse("2015-10-21")  },
                 new Leg{StartLocation="Portloise",Trip=trips[1], FinishLocation= "Naas", StartDate=DateTime.Parse("2015-10-21"), FinishDate=DateTime.Parse("2015-11-01")  }               
                 };
-                    legs2.ForEach(s => context.Legs.Add(s));
+                    legs2.ForEach(s => context.Legs.AddOrUpdate(s));
                     context.SaveChanges();
 
                     var legs3 = new List<Leg>
@@ -78,7 +76,7 @@ namespace CA_sem2.Migrations
                 new Leg{StartLocation="Madrid",Trip=trips[2], FinishLocation= "Burgos", StartDate=DateTime.Parse("2014-10-21"), FinishDate=DateTime.Parse("2014-11-01")  },
                 new Leg{StartLocation="Burgos",Trip=trips[2], FinishLocation= "San Sabastain", StartDate=DateTime.Parse("2014-11-01"), FinishDate=DateTime.Parse("2014-11-21")  }
                 };
-                    legs3.ForEach(s => context.Legs.Add(s));
+                    legs3.ForEach(s => context.Legs.AddOrUpdate(s));
                     context.SaveChanges();
 
                     var legs4 = new List<Leg>
@@ -87,7 +85,7 @@ namespace CA_sem2.Migrations
                 new Leg{StartLocation="Bordeaux",Trip=trips[3], FinishLocation= "La Rochelle", StartDate=DateTime.Parse("2015-09-21"), FinishDate=DateTime.Parse("2015-10-01")  },
                 new Leg{StartLocation="La Rochelle",Trip=trips[3], FinishLocation= "Nantes", StartDate=DateTime.Parse("2015-10-01"), FinishDate=DateTime.Parse("2015-10-21")  }
                 };
-                    legs4.ForEach(s => context.Legs.Add(s));
+                    legs4.ForEach(s => context.Legs.AddOrUpdate(s));
                     context.SaveChanges();
 
                     var legs5 = new List<Leg>
@@ -98,7 +96,7 @@ namespace CA_sem2.Migrations
                 new Leg{StartLocation="Strandhill",Trip=trips[4], FinishLocation= "Blue Rock", StartDate=DateTime.Parse("2014-09-03"), FinishDate=DateTime.Parse("2014-09-19")  },
                 new Leg{StartLocation="Blue Rock",Trip=trips[4], FinishLocation= "Lisslarry", StartDate=DateTime.Parse("2014-09-19"), FinishDate=DateTime.Parse("2014-10-04")  }
                 };
-                    legs5.ForEach(s => context.Legs.Add(s));
+                    legs5.ForEach(s => context.Legs.AddOrUpdate(s));
                     context.SaveChanges();
 
                 var guests = new List<Guest>
@@ -109,12 +107,12 @@ namespace CA_sem2.Migrations
                 new Guest{Name="Helen"},
                 new Guest{Name="Marmaduke"},
                 new Guest{Name="Jose"},
-                new Guest{Name="Frano"},
+                new Guest{Name="Franko"},
                 new Guest{Name="Fred"},
                 new Guest{Name="Sacha"},
                 new Guest{Name="Johnny"}
                 };
-                guests.ForEach(s => context.Guests.Add(s));
+                guests.ForEach(s => context.Guests.AddOrUpdate(s));
                 context.SaveChanges();
                 List<Leg> lgs = new List<Leg>();
                 List<Leg> lgs2 = new List<Leg>();
@@ -135,7 +133,7 @@ namespace CA_sem2.Migrations
                     foreach (Guest ag in allGuests)
                     {
                         var lnk = new GuestLeg { LegId = al.Id, GuestId = ag.GuestId };
-                        context.GuestLegs.Add(lnk);
+                        context.GuestLegs.AddOrUpdate(lnk);
                     }
                 }
                 context.SaveChanges();
@@ -146,17 +144,17 @@ namespace CA_sem2.Migrations
                     for (int i = 0; i < rNo; i++)
                     {
                         var lnk = new GuestLeg { LegId = al.Id, GuestId = allGuests[i].GuestId };
-                        context.GuestLegs.Add(lnk);
+                        context.GuestLegs.AddOrUpdate(lnk);
                     }
                 }
                 context.SaveChanges();
 
-                foreach (var trip in trips)     // set if complete/ valid
+                foreach (var trip in trips)     // set if complete / valid
                 {
                     if (trip.LegsColl[trip.LegsColl.Count() - 1].FinishDate == trip.FinishDate)
-                        trip.FStatus = FinStatus.completed;
+                        trip.complete = true;
                     else
-                        trip.FStatus = FinStatus.incomplete;
+                        trip.complete = false;
                     int moreThan2 = 0;                          // check if at least 2 legs have guests
                     int allGuestsCount = 0;                     // count all guests for this trip
                     foreach (Leg item in trip.LegsColl)
@@ -172,7 +170,6 @@ namespace CA_sem2.Migrations
 
                     context.SaveChanges();
                 }
-            //}
         }
     }
 }
